@@ -7,6 +7,14 @@ After switching from Cocos2D to Unity3d, i'm still missing just one cocos's feat
 It's a great combination of simplicity and flexibility, and i haven't found the suitable replacement for it.
 Since actions are quite simple, i implemented them myself.
 
+### How to use
+
+Just put the src folder into your assets folder.
+Then attach the Actor.cs script to the object you want.
+See the examples folder, there's a sample script there.
+
+You can also subclass the Actor and add all the actions you want to the Start() method.
+
 ### Included actions (ready and WIP)
 
 Base actions
