@@ -24,6 +24,7 @@ Base actions
 - [ ]  Reverse
 
 Interval actions
+- [x]  Delay and RandomDelay *implemented in one action*
 - [x]  MoveTo
 - [x]  MoveBy
 - [x]  RotateTo
@@ -31,7 +32,6 @@ Interval actions
 - [x]  ScaleTo
 - [x]  ScaleBy
 - [x]  TintBy
-- [x]  Delay and RandomDelay *implemented in one action*
 - [ ]  TintTo
 - [ ]  FadeOut
 - [ ]  FadeIn
