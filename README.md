@@ -15,27 +15,30 @@ See the examples folder, there's a sample script there.
 
 You can also subclass the Actor and add all the actions you want to the Start() method.
 
-### Included actions (ready and WIP)
+### Included actions (ready and WIP) 
+All actions are designed to word in 3D scene (i.e. using Vector3 for movement, rotation and scaling).
+You can use it in 2D with apropriate vectors, but i'm going to add support for 2D actions soon.
 
 Base actions
 - [x]  Sequence
 - [x]  Parallel
 - [x]  Repeat and Loop *implemented in one action*
-- [ ]  Reverse
+- [ ]  Reverse *not yet, but every reversable action has working reverse() method*
 
 Interval actions
+- [x]  Delay and RandomDelay *implemented in one action*
 - [x]  MoveTo
 - [x]  MoveBy
 - [x]  RotateTo
 - [x]  RotateBy
 - [x]  ScaleTo
 - [x]  ScaleBy
-- [x]  TintBy
-- [x]  Delay and RandomDelay *implemented in one action*
-- [ ]  TintTo
-- [ ]  FadeOut
-- [ ]  FadeIn
-- [ ]  FadeTo
+- [x]  TintBy *if you want to manipulate alpha, your material must support transparency*
+- [x]  TintTo *if you want to manipulate alpha, your material must support transparency*
+- [ ]  FadeOut *if you want to manipulate alpha, your material must support transparency*
+- [ ]  FadeIn *if you want to manipulate alpha, your material must support transparency*
+- [ ]  FadeTo *if you want to manipulate alpha, your material must support transparency*
+- [x]  FadeBy *if you want to manipulate alpha, your material must support transparency*
 - [ ]  JumpTo 
 - [ ]  JumpBy
 - [ ]  Bezier
