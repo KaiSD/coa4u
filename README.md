@@ -41,7 +41,8 @@ Interval actions
 - [x]  FadeBy *if you want to manipulate alpha, your material must support transparency*
 - [ ]  JumpTo 
 - [ ]  JumpBy
-- [ ]  Bezier
+- [x]  BezierAbs
+- [ ]  BezierRel
 - [ ]  Blink
 
 Instant actions
