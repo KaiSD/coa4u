@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionFadeBy : ActionInterval
+class ActionFadeTo : ActionInterval
 {
+    public float value;
     public float delta;
 
-    public ActionFadeBy(float tgtDelta, float tgtDuration)
+    public ActionFadeTo(float tgtValue, float tgtDuration)
         : base(tgtDuration)
     {
-        delta = tgtDelta;
+        value = tgtValue;
     }
 
     public override Action clone()
     {
-        return new ActionFadeBy(delta, duration);
+        return new ActionFadeTo(value, duration);
     }
 
-    public override Action reverse()
+    public override void start()
     {
-        return new ActionFadeBy(-delta, duration);
+        base.start();
+        delta = value - target.gameObject.renderer.material.color.a;
     }
 
     public override void stepInterval(float dt)

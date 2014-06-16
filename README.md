@@ -35,9 +35,9 @@ Interval actions
 - [x]  ScaleBy
 - [x]  TintBy *if you want to manipulate alpha, your material must support transparency*
 - [x]  TintTo *if you want to manipulate alpha, your material must support transparency*
-- [ ]  FadeOut *if you want to manipulate alpha, your material must support transparency*
-- [ ]  FadeIn *if you want to manipulate alpha, your material must support transparency*
-- [ ]  FadeTo *if you want to manipulate alpha, your material must support transparency*
+- [x]  FadeOut *if you want to manipulate alpha, your material must support transparency*
+- [x]  FadeIn *if you want to manipulate alpha, your material must support transparency*
+- [x]  FadeTo *if you want to manipulate alpha, your material must support transparency*
 - [x]  FadeBy *if you want to manipulate alpha, your material must support transparency*
 - [ ]  JumpTo 
 - [ ]  JumpBy
