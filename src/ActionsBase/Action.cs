@@ -6,6 +6,8 @@ public class Action
 {
     protected Actor target;
     public float duration = 0;
+    protected Transform transform;
+    protected Renderer renderer;
 
     public Action()
     {
@@ -36,6 +38,8 @@ public class Action
     {
         if (target == null)
             throw new Exception("Can start the action only after it's atached to the actor");
+        transform = target.gameObject.transform;
+        renderer = target.gameObject.renderer;
     }
 
     /// <summary>

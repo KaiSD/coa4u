@@ -25,7 +25,7 @@ class ActionRotateTo : ActionInterval
         for (int i = 0; i < 3; i++)
         {
             float t = value[i];
-            float f = target.gameObject.transform.rotation.eulerAngles[i];
+            float f = transform.rotation.eulerAngles[i];
             if (Math.Abs(t - f) < Math.Abs(t + 360 - f))
                 path[i] = t - f;
             else
@@ -36,8 +36,8 @@ class ActionRotateTo : ActionInterval
     {
         float d = dt / duration;
         Vector3 tgt = path * d;
-        target.gameObject.transform.Rotate(Vector3.up, tgt.y);
-        target.gameObject.transform.Rotate(Vector3.right, tgt.x);
-        target.gameObject.transform.Rotate(Vector3.forward, tgt.z);
+        transform.Rotate(Vector3.up, tgt.y);
+        transform.Rotate(Vector3.right, tgt.x);
+        transform.Rotate(Vector3.forward, tgt.z);
     }
 }

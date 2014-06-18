@@ -23,10 +23,10 @@ class ActionSetRotation : Action
         Vector3 path = new Vector3();
         for (int i = 0; i < 3; i++)
         {
-            path[i] = value[i] - target.gameObject.transform.rotation.eulerAngles[i];
+            path[i] = value[i] - transform.rotation.eulerAngles[i];
         }
-        target.gameObject.transform.Rotate(Vector3.up, path.y);
-        target.gameObject.transform.Rotate(Vector3.right, path.x);
-        target.gameObject.transform.Rotate(Vector3.forward, path.z);
+        transform.Rotate(Vector3.up, path.y);
+        transform.Rotate(Vector3.right, path.x);
+        transform.Rotate(Vector3.forward, path.z);
     }
 }

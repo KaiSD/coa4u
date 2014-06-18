@@ -4,7 +4,7 @@ using UnityEngine;
 
 class ActionTintBy : ActionInterval
 {
-    public Vector4 color;
+    protected Vector4 color;
     protected const float coeff = 1F / 255F;
 
     public ActionTintBy(Vector4 tgtColor, float tgtDuration)
@@ -32,11 +32,11 @@ class ActionTintBy : ActionInterval
     {
         float d = dt / duration;
         Vector4 tgt = color * d;
-        Color tgtColor = target.gameObject.renderer.material.color;
+        Color tgtColor = renderer.material.color;
         tgtColor[0] += tgt[0];
         tgtColor[1] += tgt[1];
         tgtColor[2] += tgt[2];
         tgtColor[3] += tgt[3];
-        target.gameObject.renderer.material.color = tgtColor;
+        renderer.material.color = tgtColor;
     }
 }

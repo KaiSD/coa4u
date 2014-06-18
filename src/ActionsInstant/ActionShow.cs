@@ -18,6 +18,6 @@ class ActionShow : Action
     public override void start()
     {
         base.start();
-        target.gameObject.renderer.enabled = true;
+        renderer.enabled = true;
     }
 }

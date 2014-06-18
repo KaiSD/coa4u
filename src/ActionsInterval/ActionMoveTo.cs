@@ -22,13 +22,13 @@ class ActionMoveTo : ActionInterval
     public override void start()
     {
         base.start();
-        path = value - target.gameObject.transform.position;
+        path = value - transform.position;
     }
 
     public override void stepInterval(float dt)
     {
         float d = dt / duration;
         Vector3 tgt = path * d;
-        target.gameObject.transform.Translate(tgt, Space.World);
+        transform.Translate(tgt, Space.World);
     }
 }

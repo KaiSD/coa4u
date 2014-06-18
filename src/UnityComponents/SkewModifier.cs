@@ -9,6 +9,12 @@ public class SkewModifier : MonoBehaviour
     protected Vector3 angles1prev = Vector3.zero;
     protected Vector3 angles2prev = Vector3.zero;
     protected const float coeff = Mathf.PI/180;
+    protected Mesh mesh;
+
+    void Awake()
+    {
+        mesh = gameObject.GetComponent<MeshFilter>().mesh;
+    }
 
     void Update()
     {
@@ -30,7 +36,7 @@ public class SkewModifier : MonoBehaviour
         m[2, 0] = Mathf.Tan(angles1.z * coeff) - Mathf.Tan(angles1prev.z * coeff); // skewing in zx
         m[2, 1] = Mathf.Tan(angles2.z * coeff) - Mathf.Tan(angles2prev.z * coeff); // skewing in zy
 
-        Vector3[] verts = gameObject.GetComponent<MeshFilter>().mesh.vertices;
+        Vector3[] verts = mesh.vertices;
         int i = 0;
         while (i < verts.Length)
         {
@@ -38,7 +44,7 @@ public class SkewModifier : MonoBehaviour
             i++;
         }
 
-        gameObject.GetComponent<MeshFilter>().mesh.vertices = verts;
+        mesh.vertices = verts;
         angles1prev = angles1;
         angles2prev = angles2;
     }

@@ -17,7 +17,7 @@ You can also subclass the Actor and add all the actions you want to the Start() 
 
 ### Included actions (ready and WIP) 
 All actions are designed to word in 3D scene (i.e. using Vector3 for movement, rotation and scaling).
-You can use it in 2D with appropriate vectors, but i'm going to add support for 2D actions soon.
+You can use it in 2D with apropriate vectors, but i'm going to add support for 2D actions soon.
 
 Base actions
 - [x]  Sequence
@@ -39,11 +39,11 @@ Interval actions
 - [x]  FadeIn *if you want to manipulate alpha, your material must support transparency*
 - [x]  FadeTo *if you want to manipulate alpha, your material must support transparency*
 - [x]  FadeBy *if you want to manipulate alpha, your material must support transparency*
-- [ ]  JumpTo 
-- [ ]  JumpBy
 - [x]  BezierAbs
-- [ ]  BezierRel
-- [ ]  Blink
+- [x]  BezierRel
+- [x]  JumpTo *uses Bezier action to move the object*
+- [x]  JumpBy *uses Bezier action to move the object*
+- [x]  Blink
 
 Instant actions
 - [x]  Place *renamed to SetPlace*

@@ -4,8 +4,8 @@ using UnityEngine;
 
 class ActionTintTo : ActionInterval
 {
-    public Vector4 color;
-    public Vector4 path;
+    protected Vector4 color;
+    protected Vector4 path;
     protected const float coeff = 1F / 255F;
 
     public ActionTintTo(Vector4 tgtColor, float tgtDuration)
@@ -28,7 +28,7 @@ class ActionTintTo : ActionInterval
     public override void start()
     {
         base.start();
-        Color tgtColor = target.gameObject.renderer.material.color;
+        Color tgtColor = renderer.material.color;
         path[0] = color[0] - tgtColor[0];
         path[1] = color[1] - tgtColor[1];
         path[2] = color[2] - tgtColor[2];
@@ -39,11 +39,11 @@ class ActionTintTo : ActionInterval
     {
         float d = dt / duration;
         Vector4 tgt = path * d;
-        Color tgtColor = target.gameObject.renderer.material.color;
+        Color tgtColor = renderer.material.color;
         tgtColor[0] += tgt[0];
         tgtColor[1] += tgt[1];
         tgtColor[2] += tgt[2];
         tgtColor[3] += tgt[3];
-        target.gameObject.renderer.material.color = tgtColor;
+        renderer.material.color = tgtColor;
     }
 }

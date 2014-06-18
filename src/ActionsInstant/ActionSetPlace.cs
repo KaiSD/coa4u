@@ -20,6 +20,6 @@ class ActionSetPlace : Action
     public override void start()
     {
         base.start();
-        target.gameObject.transform.position = place;
+        transform.position = place;
     }
 }

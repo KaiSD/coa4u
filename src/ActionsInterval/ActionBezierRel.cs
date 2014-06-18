@@ -2,30 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionBezierAbs : ActionInterval
+class ActionBezierRel : ActionInterval
 {
+    protected Vector3 ep;
+    protected Vector3 cp1;
+    protected Vector3 cp2;
     protected Vector3 startPoint;
     protected Vector3 endPoint;
     protected Vector3 startControlPoint;
     protected Vector3 endControlPoint;
 
-    public ActionBezierAbs(Vector3 tgtStart, Vector3 tgtSCP, Vector3 tgtECP, Vector3 tgtEnd, float tgtDuration)
+    public ActionBezierRel(Vector3 tgtSCP, Vector3 tgtECP, Vector3 tgtEnd, float tgtDuration)
         : base(tgtDuration)
     {
-        startPoint = tgtStart;
-        endPoint = tgtEnd;
-        startControlPoint = tgtSCP;
-        endControlPoint = tgtECP;
+        ep = tgtEnd;
+        cp1 = tgtSCP;
+        cp2 = tgtECP;
     }
 
     public override Action clone()
     {
-        return new ActionBezierAbs(startPoint, startControlPoint, endControlPoint, endPoint, duration);
+        return new ActionBezierRel(startControlPoint, endControlPoint, endPoint, duration);
     }
 
     public override Action reverse()
     {
-        return new ActionBezierAbs(endPoint, endControlPoint, startControlPoint, startPoint, duration);
+        return new ActionBezierRel(-startControlPoint, -endControlPoint, -endPoint, duration);
+    }
+
+    public override void start()
+    {
+        base.start();
+        startPoint = target.transform.position;
+        endPoint = startPoint + ep;
+        startControlPoint = startPoint + cp1;
+        endControlPoint = startControlPoint + cp2;
     }
 
     public override void stepInterval(float dt)

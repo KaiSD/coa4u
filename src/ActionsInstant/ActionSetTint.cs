@@ -16,6 +16,6 @@ class ActionSetTint : Action
     public override void start()
     {
         base.start();
-        target.gameObject.renderer.material.color = new Color(color[0], color[1], color[2], color[3]);
+        renderer.material.color = new Color(color[0], color[1], color[2], color[3]);
     }
 }

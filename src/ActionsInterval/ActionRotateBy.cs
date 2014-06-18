@@ -26,8 +26,8 @@ class ActionRotateBy : ActionInterval
     {
         float d = dt / duration;
         Vector3 tgt = delta * d;
-        target.gameObject.transform.Rotate(Vector3.up, tgt.y);
-        target.gameObject.transform.Rotate(Vector3.right, tgt.x);
-        target.gameObject.transform.Rotate(Vector3.forward, tgt.z);
+        transform.Rotate(Vector3.up, tgt.y);
+        transform.Rotate(Vector3.right, tgt.x);
+        transform.Rotate(Vector3.forward, tgt.z);
     }
 }

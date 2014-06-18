@@ -18,6 +18,6 @@ class ActionHide : Action
     public override void start()
     {
         base.start();
-        target.gameObject.renderer.enabled = false;
+        renderer.enabled = false;
     }
 }

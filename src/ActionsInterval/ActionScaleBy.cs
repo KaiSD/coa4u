@@ -26,18 +26,18 @@ class ActionScaleBy : ActionInterval
     public override void start()
     {
         base.start();
-        Vector3 scale = target.gameObject.transform.localScale;
+        Vector3 scale = transform.localScale;
         scale.x *= delta.x;
         scale.y *= delta.y;
         scale.z *= delta.z;
-        path = scale - target.gameObject.transform.localScale;
+        path = scale - transform.localScale;
     }
 
     public override void stepInterval(float dt)
     {
         float d = dt / duration;
         Vector3 tgt = path * d;
-        target.gameObject.transform.localScale += tgt;
+        transform.localScale += tgt;
     }
 
     public override void stop()

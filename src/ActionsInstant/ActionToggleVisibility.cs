@@ -13,6 +13,6 @@ class ActionToggleVisibility : Action
     public override void start()
     {
         base.start();
-        target.gameObject.renderer.enabled = !target.gameObject.renderer.enabled;
+        renderer.enabled = !renderer.enabled;
     }
 }

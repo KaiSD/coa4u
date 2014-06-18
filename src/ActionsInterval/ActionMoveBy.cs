@@ -26,6 +26,6 @@ class ActionMoveBy : ActionInterval
     {
         float d = dt / duration;
         Vector3 tgt = delta * d;
-        target.gameObject.transform.Translate(tgt, Space.World);
+        transform.Translate(tgt, Space.World);
     }
 }

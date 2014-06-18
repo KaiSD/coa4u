@@ -4,7 +4,7 @@ using UnityEngine;
 
 class ActionFadeBy : ActionInterval
 {
-    public float delta;
+    protected float delta;
 
     public ActionFadeBy(float tgtDelta, float tgtDuration)
         : base(tgtDuration)
@@ -25,8 +25,8 @@ class ActionFadeBy : ActionInterval
     public override void stepInterval(float dt)
     {
         float d = dt / duration;
-        Color tgtColor = target.gameObject.renderer.material.color;
+        Color tgtColor = renderer.material.color;
         tgtColor[3] += delta * d;
-        target.gameObject.renderer.material.color = tgtColor;
+        renderer.material.color = tgtColor;
     }
 }
