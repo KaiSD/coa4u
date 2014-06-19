@@ -17,6 +17,12 @@ class ActionJumpBy : ActionSequence
         duration = tgtDuration;
     }
 
+    public ActionJumpBy(Vector2 tgtPoint, float tgtHeight, int tgtJumps, float tgtDuration)
+        : this((Vector3)tgtPoint, tgtHeight, tgtJumps, tgtDuration)
+    {
+        is2d = true;
+    }
+
     public override Action clone()
     {
         return new ActionJumpBy(point, height, jumps, duration);

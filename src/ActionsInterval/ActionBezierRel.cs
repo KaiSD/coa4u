@@ -20,6 +20,12 @@ class ActionBezierRel : ActionInterval
         cp2 = tgtECP;
     }
 
+    public ActionBezierRel(Vector2 tgtSCP, Vector2 tgtECP, Vector2 tgtEnd, float tgtDuration)
+        : this((Vector3)tgtSCP, (Vector3)tgtECP, (Vector3)tgtEnd, tgtDuration)
+    {
+        is2d = true;
+    }
+
     public override Action clone()
     {
         return new ActionBezierRel(startControlPoint, endControlPoint, endPoint, duration);

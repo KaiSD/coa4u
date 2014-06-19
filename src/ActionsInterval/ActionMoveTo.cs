@@ -13,6 +13,11 @@ class ActionMoveTo : ActionInterval
         value = tgtValue;
     }
 
+    public ActionMoveTo(Vector2 tgtValue, float tgtDuration)
+        : this((Vector3) tgtValue, tgtDuration)
+    {
+        is2d = true;
+    }
 
     public override Action clone()
     {
@@ -22,6 +27,8 @@ class ActionMoveTo : ActionInterval
     public override void start()
     {
         base.start();
+        if (is2d)
+            value.z = transform.position.z;
         path = value - transform.position;
     }
 

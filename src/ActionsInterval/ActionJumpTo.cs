@@ -17,6 +17,12 @@ class ActionJumpTo : ActionSequence
         duration = tgtDuration;
     }
 
+    public ActionJumpTo(Vector2 tgtPoint, float tgtHeight, int tgtJumps, float tgtDuration)
+        : this((Vector3)tgtPoint, tgtHeight, tgtJumps, tgtDuration)
+    {
+        is2d = true;
+    }
+
     public override Action clone()
     {
         return new ActionJumpTo(point, height, jumps, duration);
@@ -25,6 +31,8 @@ class ActionJumpTo : ActionSequence
     public override void start()
     {
         float coeff = 1F / jumps;
+        if (is2d)
+            point.z = transform.position.z;
         Vector3 start = target.gameObject.transform.position;
         Vector3 end = (point - start) * coeff;
         Vector3 cp1 = Vector3.up * height;

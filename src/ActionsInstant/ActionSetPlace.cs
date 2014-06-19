@@ -4,22 +4,30 @@ using UnityEngine;
 
 class ActionSetPlace : Action
 {
-    protected Vector3 place;
+    protected Vector3 value;
 
     public ActionSetPlace(Vector3 tgtPlace)
         : base()
     {
-        place = tgtPlace;
+        value = tgtPlace;
+    }
+
+    public ActionSetPlace(Vector2 tgtPlace)
+        : this((Vector3) tgtPlace)
+    {
+        is2d = true;
     }
 
     public override Action clone()
     {
-        return new ActionSetPlace(place);
+        return new ActionSetPlace(value);
     }
 
     public override void start()
     {
         base.start();
-        transform.position = place;
+        if (is2d)
+            value.z = transform.position.z;
+        transform.position = value;
     }
 }

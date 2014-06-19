@@ -12,6 +12,12 @@ class ActionMoveBy : ActionInterval
         delta = tgtDelta;
     }
 
+    public ActionMoveBy(Vector2 tgtValue, float tgtDuration)
+        : this((Vector3) tgtValue, tgtDuration)
+    {
+        is2d = true;
+    }
+
     public override Action clone()
     {
         return new ActionMoveBy(delta, duration);

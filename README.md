@@ -16,8 +16,7 @@ See the examples folder, there's a sample script there.
 You can also subclass the Actor and add all the actions you want to the Start() method.
 
 ### Included actions (ready and WIP) 
-All actions are designed to word in 3D scene (i.e. using Vector3 for movement, rotation and scaling).
-You can use it in 2D with apropriate vectors, but i'm going to add support for 2D actions soon.
+All actions are capable to work both in 3D (use Vector3) and 2D (use Vector2) scenes.
 
 Base actions
 - [x]  Sequence

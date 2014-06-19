@@ -13,6 +13,12 @@ class ActionScaleTo : ActionInterval
         value = tgtValue;
     }
 
+    public ActionScaleTo(Vector2 tgtValue, float tgtDuration)
+        : this((Vector3) tgtValue, tgtDuration)
+    {
+        is2d = true;
+    }
+
     public override Action clone()
     {
         return new ActionScaleTo(value, duration);
@@ -21,6 +27,8 @@ class ActionScaleTo : ActionInterval
     public override void start()
     {
         base.start();
+        if (is2d)
+            value.z = transform.localScale.z;
         path = value - transform.localScale;
     }
 
@@ -29,10 +37,5 @@ class ActionScaleTo : ActionInterval
         float d = dt / duration;
         Vector3 tgt = path * d;
         transform.localScale += tgt;
-    }
-
-    public override void stop()
-    {
-        base.stop();
     }
 }

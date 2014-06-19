@@ -12,6 +12,12 @@ class ActionSetRotation : Action
         value = tgtValue;
     }
 
+    public ActionSetRotation(float angle)
+        : this(new Vector3(0, 0, angle))
+    {
+        is2d = true;
+    }
+
     public override Action clone()
     {
         return new ActionSetRotation(value);

@@ -12,6 +12,12 @@ class ActionRotateBy : ActionInterval
         delta = tgtDelta;
     }
 
+    public ActionRotateBy(float angle, float tgtDuration)
+        : this(new Vector3(0, 0, angle), tgtDuration)
+    {
+        is2d = true;
+    }
+
     public override Action clone()
     {
         return new ActionRotateBy(delta, duration);

@@ -8,6 +8,7 @@ public class Action
     public float duration = 0;
     protected Transform transform;
     protected Renderer renderer;
+    protected bool is2d = false;
 
     public Action()
     {
