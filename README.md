@@ -57,16 +57,16 @@ There's no plans for 3DGrid actions. You can use the 3D actions instead.
 
 ### Some additional actions
 Base actions
-- [x] Random *Randomly choises and does one action from the given list.*
+- [x] Random - randomly choises and does one action from the given list.
 
 Interval actions
 *These two actions requires the using of MeshActor script instead of Actor.*
-- [x]  SkewBy
-- [ ]  SkewTo
+- [x]  SkewBy - skews the mesh by given values.
+- [ ]  SkewTo - skews the mesh to the given values.
 
 Instant actions
-- [x] SetRotation
-- [x] SetTint
+- [x] SetRotation - instantly rotates the object to the given euler angles.
+- [x] SetTint - instantly tints the object to the given color.
 
 ### Future plans
 After completing these actions, i'm going to add some more to the list.
