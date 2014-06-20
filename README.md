@@ -11,7 +11,7 @@ Since actions are quite simple, i implemented them myself.
 
 1. Put the src folder into your assets folder.
 2. Then attach the Actor.cs script to the object you want.
-3. See the examples folder, there's a sample script there.
+3. See the ActorSampleActions.cs class, if you need examples.
 
 You can also subclass the Actor and add all the actions you want to the Start() method.
 
