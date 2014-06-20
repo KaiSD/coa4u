@@ -22,6 +22,7 @@ Base actions
 - [x]  Sequence
 - [x]  Parallel
 - [x]  Repeat and Loop *implemented in one action*
+
 *Every reversable action has a reverse() method. So, no plans for Reverse action right now.*
 
 Interval actions
