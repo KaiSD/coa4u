@@ -32,8 +32,6 @@ class ActionRotateBy : ActionInterval
     {
         float d = dt / duration;
         Vector3 tgt = delta * d;
-        transform.Rotate(Vector3.up, tgt.y);
-        transform.Rotate(Vector3.right, tgt.x);
-        transform.Rotate(Vector3.forward, tgt.z);
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + tgt);
     }
 }

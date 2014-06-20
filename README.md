@@ -9,7 +9,7 @@ Since actions are quite simple, i implemented them myself.
 
 ### How to use
 
-Just put the src folder into your assets folder.
+ 1. Put the src folder into your assets folder.
 Then attach the Actor.cs script to the object you want.
 See the examples folder, there's a sample script there.
 
@@ -22,7 +22,7 @@ Base actions
 - [x]  Sequence
 - [x]  Parallel
 - [x]  Repeat and Loop *implemented in one action*
-- [ ]  Reverse *not yet, but every reversable action has working reverse() method*
+- ~[ ] Reverse~ *Every reversable action has a reverse() method. So, no plans for Reverse action right now.*
 
 Interval actions
 - [x]  Delay and RandomDelay *implemented in one action*
@@ -32,17 +32,18 @@ Interval actions
 - [x]  RotateBy
 - [x]  ScaleTo
 - [x]  ScaleBy
-- [x]  TintBy *if you want to manipulate alpha, your material must support transparency*
-- [x]  TintTo *if you want to manipulate alpha, your material must support transparency*
-- [x]  FadeOut *if you want to manipulate alpha, your material must support transparency*
-- [x]  FadeIn *if you want to manipulate alpha, your material must support transparency*
-- [x]  FadeTo *if you want to manipulate alpha, your material must support transparency*
-- [x]  FadeBy *if you want to manipulate alpha, your material must support transparency*
 - [x]  BezierAbs
 - [x]  BezierRel
 - [x]  JumpTo *uses Bezier action to move the object*
 - [x]  JumpBy *uses Bezier action to move the object*
 - [x]  Blink
+*if you want to manipulate alpha with the following actions, your material should support transparency (i.e. use Transparent shader)*
+- [x]  TintBy 
+- [x]  TintTo
+- [x]  FadeOut
+- [x]  FadeIn
+- [x]  FadeTo
+- [x]  FadeBy
 
 Instant actions
 - [x]  Place *renamed to SetPlace*
@@ -51,10 +52,15 @@ Instant actions
 - [x]  Show
 - [x]  ToggleVisibility
 
+There's no plans for 3DGrid actions. You can use the 3D actions instead.
+
 ### Some additional actions
+Base actions
+- [x] Random *Randomly choises and does one action from the given list.*
 
 Interval actions
-- [ ]  SkewBy
+*These two actions requires the using of MeshActor script instead of Actor.*
+- [x]  SkewBy
 - [ ]  SkewTo
 
 Instant actions

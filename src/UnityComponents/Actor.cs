@@ -6,7 +6,7 @@ public class Actor : MonoBehaviour
     protected Action action;
     private bool paused = false;
 
-    void Update()
+    protected void Update()
     {
         if (paused || action == null)
             return;

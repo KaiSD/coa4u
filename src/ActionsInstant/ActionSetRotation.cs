@@ -26,13 +26,7 @@ class ActionSetRotation : Action
     public override void start()
     {
         base.start();
-        Vector3 path = new Vector3();
-        for (int i = 0; i < 3; i++)
-        {
-            path[i] = value[i] - transform.rotation.eulerAngles[i];
-        }
-        transform.Rotate(Vector3.up, path.y);
-        transform.Rotate(Vector3.right, path.x);
-        transform.Rotate(Vector3.forward, path.z);
+        transform.rotation = Quaternion.Euler(value);
+
     }
 }
