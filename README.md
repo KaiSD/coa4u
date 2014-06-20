@@ -9,9 +9,9 @@ Since actions are quite simple, i implemented them myself.
 
 ### How to use
 
- 1. Put the src folder into your assets folder.
-Then attach the Actor.cs script to the object you want.
-See the examples folder, there's a sample script there.
+1. Put the src folder into your assets folder.
+2. Then attach the Actor.cs script to the object you want.
+3. See the examples folder, there's a sample script there.
 
 You can also subclass the Actor and add all the actions you want to the Start() method.
 
