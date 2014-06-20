@@ -13,7 +13,7 @@ Since actions are quite simple, i implemented them myself.
 2. Then attach the Actor.cs script to the object you want.
 3. See the ActorSampleActions.cs class, if you need examples.
 
-You can also subclass the Actor and add all the actions you want to the Start() method.
+You can also add actions on the fly, by using the AttachAction method of the Actor class.
 
 ### Included actions (ready and WIP) 
 All actions are capable to work both in 3D (use Vector3) and 2D (use Vector2) scenes.
