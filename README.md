@@ -38,7 +38,7 @@ Interval actions
 - [x]  JumpTo *uses Bezier action to move the object*
 - [x]  JumpBy *uses Bezier action to move the object*
 - [x]  Blink
-- 
+
 *if you want to manipulate alpha with the following actions, your material should support transparency (i.e. use Transparent shader)*
 - [x]  TintBy 
 - [x]  TintTo
