@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using coa4u;
 
-public class ActorSampleActions : MeshActor
+public class ActorSampleActions : Actor
 {
     public void Start()
     {
-        Action seq = new ActionRepeat (new ActionSequence(new Action[] 
+        ActionInstant seq = new ActionRepeat (new ActionSequence(new ActionInstant[] 
         {
             new ActionFadeIn(2),
-            new ActionParallel(new Action[] {
+            new ActionParallel(new ActionInstant[] {
                 new ActionMoveBy(new Vector3(10, 10, 0), 1),
                 new ActionRotateBy(new Vector3(90, 90, 0), 1),
                 new ActionTintBy(new Vector4(-50, 50, -150), 1)
@@ -32,9 +33,23 @@ public class ActorSampleActions : MeshActor
             new ActionScaleTo(new Vector3(2, 2, 2), 1),
             new ActionRotateTo(new Vector3(0, 0, 0), 1),
             new ActionFadeOut(2),
-            new ActionSetTint(new Vector4(67, 105, 181))
+            new ActionSetTint(new Vector4(67, 105, 181)),
+            new ActionSendMessage("msgHello"),
+            new ActionSendMessage("msgHelloTo", "world"),
         }), 5);
-        SetTimeScale(2);
         this.AttachAction(seq);
+
+        AddMethodToCache(new MethodHolder(msgHello));
+        AddMethodToCache(new MethodHolder<string>(msgHelloTo));
+    }
+
+    void msgHello()
+    {
+        Debug.Log("Hello!");
+    }
+
+    void msgHelloTo(string who)
+    {
+        Debug.Log("Hello " + who.ToString() + "!");
     }
 }

@@ -2,68 +2,86 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionRepeat : ActionInterval
+namespace coa4u
 {
-    protected ActionInterval action;
-    protected int count;
-    protected int counter;
-    protected bool forever;
-
-    public ActionRepeat(ActionInterval tgtAction, int tgtCount)
-        : base(0)
+    /// <summary>
+    /// Runs the given action the several times. Also can repeat the action forever.
+    /// </summary>
+    class ActionRepeat : ActionInterval
     {
-        action = tgtAction;
-        count = tgtCount;
-        counter = 0;
-        forever = false;
-    }
+        protected ActionInterval action;
+        protected int count;
+        protected int counter;
+        protected bool forever;
 
-    public ActionRepeat(ActionInterval tgtAction)
-        : base(0)
-    {
-        action = tgtAction;
-        count = 0;
-        counter = 0;
-        forever = true;
-    }
-
-    public override Action clone()
-    {
-        return new ActionRepeat((ActionInterval) action.clone(), count);
-    }
-
-    public override Action reverse()
-    {
-        return new ActionRepeat((ActionInterval) action.reverse(), count);
-    }
-
-    public override void start()
-    {
-        base.start();
-        action.setActor(target);
-        action.start();
-        counter = 0;
-    }
-
-    public override void step(float dt)
-    {
-        dt *= timeScale;
-        if (action.isRunning())
+        public ActionRepeat(ActionInterval tgtAction, int tgtCount)
+            : base(0)
         {
-            action.step(dt);
+            action = tgtAction;
+            count = tgtCount;
+            counter = 0;
+            forever = false;
         }
-        if (!action.isRunning() && (forever || counter < count - 1))
+
+        public ActionRepeat(ActionInterval tgtAction)
+            : base(0)
         {
-            float dtrdata = action.dtr;
+            action = tgtAction;
+            count = 0;
+            counter = 0;
+            forever = true;
+        }
+
+        /// <summary>
+        /// Returns a copy of the action.
+        /// </summary>
+        public override ActionInstant clone()
+        {
+            return new ActionRepeat((ActionInterval)action.clone(), count);
+        }
+
+        /// <summary>
+        /// Returns the reversed version of the action, if it is possible.
+        /// </summary>
+        public override ActionInstant reverse()
+        {
+            return new ActionRepeat((ActionInterval)action.reverse(), count);
+        }
+
+        /// <summary>
+        /// This method is called at the action start.
+        /// </summary>
+        public override void start()
+        {
+            base.start();
+            action.setActor(target);
             action.start();
-            if (dtrdata > 0)
-                action.step(dtrdata);
-            counter += 1;
+            counter = 0;
         }
-        else if (!action.isRunning() && counter >= count - 1)
+
+        /// <summary>
+        /// This method is called every frame update.
+        /// </summary>
+        public override void step(float dt)
         {
-            dtr = action.dtr;
-            stop();
+            dt *= timeScale;
+            if (action.running)
+            {
+                action.step(dt);
+            }
+            if (!action.running && (forever || counter < count - 1))
+            {
+                float dtrdata = action.dtr;
+                action.start();
+                if (dtrdata > 0)
+                    action.step(dtrdata);
+                counter += 1;
+            }
+            else if (!action.running && counter >= count - 1)
+            {
+                dtr = action.dtr;
+                stop();
+            }
         }
     }
 }

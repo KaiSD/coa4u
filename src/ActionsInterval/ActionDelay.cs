@@ -2,31 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionDelay : ActionInterval
+namespace coa4u
 {
-    protected float durationMin;
-    protected float durationMax;
-
-    public ActionDelay(float tgtDuration)
-        : base(tgtDuration)
+    /// <summary>
+    /// Delays the action for the given amount of seconds.
+    /// </summary>
+    class ActionDelay : ActionInterval
     {
-        durationMin = tgtDuration;
-        durationMax = tgtDuration;
-    }
+        protected float durationMin;
+        protected float durationMax;
 
-    public ActionDelay(float tgtDuration, float tgtDurationMax)
-        : base(tgtDuration)
-    {
-        durationMin = tgtDuration;
-        durationMax = tgtDurationMax;
-    }
-
-    public override void start()
-    {
-        base.start();
-        if (durationMax != null)
+        public ActionDelay(float tgtDuration)
+            : base(tgtDuration)
         {
-            duration = UnityEngine.Random.Range(durationMin, durationMax);
+            durationMin = tgtDuration;
+            durationMax = tgtDuration;
+        }
+
+        public ActionDelay(float tgtDuration, float tgtDurationMax)
+            : base(tgtDuration)
+        {
+            durationMin = tgtDuration;
+            durationMax = tgtDurationMax;
+        }
+
+        /// <summary>
+        /// This method is called at the action start.
+        /// </summary>
+        public override void start()
+        {
+            base.start();
+            if (durationMax != null)
+            {
+                duration = UnityEngine.Random.Range(durationMin, durationMax);
+            }
         }
     }
 }

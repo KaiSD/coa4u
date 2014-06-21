@@ -2,36 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionRotateBy : ActionInterval
+namespace coa4u
 {
-    protected Vector3 delta;
-
-    public ActionRotateBy(Vector3 tgtDelta, float tgtDuration)
-        : base(tgtDuration)
+    class ActionRotateBy : ActionInterval
     {
-        delta = tgtDelta;
-    }
+        protected Vector3 delta;
 
-    public ActionRotateBy(float angle, float tgtDuration)
-        : this(new Vector3(0, 0, angle), tgtDuration)
-    {
-        is2d = true;
-    }
+        public ActionRotateBy(Vector3 tgtDelta, float tgtDuration)
+            : base(tgtDuration)
+        {
+            delta = tgtDelta;
+        }
 
-    public override Action clone()
-    {
-        return new ActionRotateBy(delta, duration);
-    }
+        public ActionRotateBy(float angle, float tgtDuration)
+            : this(new Vector3(0, 0, angle), tgtDuration)
+        {
+            is2d = true;
+        }
 
-    public override Action reverse()
-    {
-        return new ActionRotateBy(delta * -1F, duration);
-    }
+        public override ActionInstant clone()
+        {
+            return new ActionRotateBy(delta, duration);
+        }
 
-    public override void stepInterval(float dt)
-    {
-        float d = dt / duration;
-        Vector3 tgt = delta * d;
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + tgt);
+        public override ActionInstant reverse()
+        {
+            return new ActionRotateBy(delta * -1F, duration);
+        }
+
+        public override void stepInterval(float dt)
+        {
+            float d = dt / duration;
+            Vector3 tgt = delta * d;
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + tgt);
+        }
     }
 }

@@ -2,22 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionHide : Action
+namespace coa4u
 {
-
-    public ActionHide()
-        : base()
+    /// <summary>
+    /// Instantly hides the target. This action does not require the transparency support in shaders.
+    /// </summary>
+    class ActionHide : ActionInstant
     {
-    }
 
-    public override Action clone()
-    {
-        return new ActionHide();
-    }
+        public ActionHide()
+            : base()
+        {
+        }
 
-    public override void start()
-    {
-        base.start();
-        renderer.enabled = false;
+        /// <summary>
+        /// Returns a copy of the action.
+        /// </summary>
+        public override ActionInstant clone()
+        {
+            return new ActionHide();
+        }
+
+        /// <summary>
+        /// Returns the reversed version of the action, if it is possible.
+        /// </summary>
+        public override ActionInstant reverse()
+        {
+            return new ActionShow();
+        }
+
+        /// <summary>
+        /// This method is called at the action start.
+        /// </summary>
+        public override void start()
+        {
+            base.start();
+            renderer.enabled = false;
+        }
     }
 }

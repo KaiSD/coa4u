@@ -2,40 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionMoveTo : ActionInterval
+namespace coa4u
 {
-    protected Vector3 value;
-    protected Vector3 path;
-
-    public ActionMoveTo(Vector3 tgtValue, float tgtDuration)
-        : base(tgtDuration)
+    class ActionMoveTo : ActionInterval
     {
-        value = tgtValue;
-    }
+        protected Vector3 value;
+        protected Vector3 path;
 
-    public ActionMoveTo(Vector2 tgtValue, float tgtDuration)
-        : this((Vector3) tgtValue, tgtDuration)
-    {
-        is2d = true;
-    }
+        public ActionMoveTo(Vector3 tgtValue, float tgtDuration)
+            : base(tgtDuration)
+        {
+            value = tgtValue;
+        }
 
-    public override Action clone()
-    {
-        return new ActionMoveBy(value, duration);
-    }
+        public ActionMoveTo(Vector2 tgtValue, float tgtDuration)
+            : this((Vector3)tgtValue, tgtDuration)
+        {
+            is2d = true;
+        }
 
-    public override void start()
-    {
-        base.start();
-        if (is2d)
-            value.z = transform.position.z;
-        path = value - transform.position;
-    }
+        public override ActionInstant clone()
+        {
+            return new ActionMoveBy(value, duration);
+        }
 
-    public override void stepInterval(float dt)
-    {
-        float d = dt / duration;
-        Vector3 tgt = path * d;
-        transform.Translate(tgt, Space.World);
+        public override void start()
+        {
+            base.start();
+            if (is2d)
+                value.z = transform.position.z;
+            path = value - transform.position;
+        }
+
+        public override void stepInterval(float dt)
+        {
+            float d = dt / duration;
+            Vector3 tgt = path * d;
+            transform.Translate(tgt, Space.World);
+        }
     }
 }

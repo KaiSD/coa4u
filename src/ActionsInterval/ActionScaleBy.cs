@@ -2,52 +2,55 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionScaleBy : ActionInterval
+namespace coa4u
 {
-    protected Vector3 delta;
-    protected Vector3 path;
-
-    public ActionScaleBy(Vector3 tgtDelta, float tgtDuration)
-        : base(tgtDuration)
+    class ActionScaleBy : ActionInterval
     {
-        delta = tgtDelta;
-    }
+        protected Vector3 delta;
+        protected Vector3 path;
 
-    public ActionScaleBy(Vector2 tgtValue, float tgtDuration)
-        : this((Vector3)tgtValue, tgtDuration)
-    {
-        is2d = true;
-    }
+        public ActionScaleBy(Vector3 tgtDelta, float tgtDuration)
+            : base(tgtDuration)
+        {
+            delta = tgtDelta;
+        }
 
-    public override Action clone()
-    {
-        return new ActionScaleBy(delta, duration);
-    }
+        public ActionScaleBy(Vector2 tgtValue, float tgtDuration)
+            : this((Vector3)tgtValue, tgtDuration)
+        {
+            is2d = true;
+        }
 
-    public override Action reverse()
-    {
-        return new ActionScaleBy(delta * -1F, duration);
-    }
+        public override ActionInstant clone()
+        {
+            return new ActionScaleBy(delta, duration);
+        }
 
-    public override void start()
-    {
-        base.start();
-        Vector3 scale = transform.localScale;
-        scale.x *= delta.x;
-        scale.y *= delta.y;
-        scale.z *= delta.z;
-        path = scale - transform.localScale;
-    }
+        public override ActionInstant reverse()
+        {
+            return new ActionScaleBy(delta * -1F, duration);
+        }
 
-    public override void stepInterval(float dt)
-    {
-        float d = dt / duration;
-        Vector3 tgt = path * d;
-        transform.localScale += tgt;
-    }
+        public override void start()
+        {
+            base.start();
+            Vector3 scale = transform.localScale;
+            scale.x *= delta.x;
+            scale.y *= delta.y;
+            scale.z *= delta.z;
+            path = scale - transform.localScale;
+        }
 
-    public override void stop()
-    {
-        base.stop();
+        public override void stepInterval(float dt)
+        {
+            float d = dt / duration;
+            Vector3 tgt = path * d;
+            transform.localScale += tgt;
+        }
+
+        public override void stop()
+        {
+            base.stop();
+        }
     }
 }

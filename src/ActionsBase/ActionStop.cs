@@ -5,22 +5,13 @@ using UnityEngine;
 namespace coa4u
 {
     /// <summary>
-    /// Instantly rotates the target.
+    /// This action stops all actions for the current target.
     /// </summary>
-    class ActionSetRotation : ActionInstant
+    class ActionStop : ActionInstant
     {
-        protected Vector3 value;
-
-        public ActionSetRotation(Vector3 tgtValue)
+        public ActionStop()
             : base()
         {
-            value = tgtValue;
-        }
-
-        public ActionSetRotation(float angle)
-            : this(new Vector3(0, 0, angle))
-        {
-            is2d = true;
         }
 
         /// <summary>
@@ -28,7 +19,7 @@ namespace coa4u
         /// </summary>
         public override ActionInstant clone()
         {
-            return new ActionSetRotation(value);
+            return new ActionStop();
         }
 
         /// <summary>
@@ -37,7 +28,7 @@ namespace coa4u
         public override void start()
         {
             base.start();
-            transform.rotation = Quaternion.Euler(value);
+            target.StopAction();
         }
     }
 }

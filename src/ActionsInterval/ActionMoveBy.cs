@@ -2,36 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionMoveBy : ActionInterval
+namespace coa4u
 {
-    protected Vector3 delta;
-
-    public ActionMoveBy(Vector3 tgtDelta, float tgtDuration)
-        : base(tgtDuration)
+    class ActionMoveBy : ActionInterval
     {
-        delta = tgtDelta;
-    }
+        protected Vector3 delta;
 
-    public ActionMoveBy(Vector2 tgtValue, float tgtDuration)
-        : this((Vector3) tgtValue, tgtDuration)
-    {
-        is2d = true;
-    }
+        public ActionMoveBy(Vector3 tgtDelta, float tgtDuration)
+            : base(tgtDuration)
+        {
+            delta = tgtDelta;
+        }
 
-    public override Action clone()
-    {
-        return new ActionMoveBy(delta, duration);
-    }
+        public ActionMoveBy(Vector2 tgtValue, float tgtDuration)
+            : this((Vector3)tgtValue, tgtDuration)
+        {
+            is2d = true;
+        }
 
-    public override Action reverse()
-    {
-        return new ActionMoveBy(delta * -1F, duration);
-    }
+        public override ActionInstant clone()
+        {
+            return new ActionMoveBy(delta, duration);
+        }
 
-    public override void stepInterval(float dt)
-    {
-        float d = dt / duration;
-        Vector3 tgt = delta * d;
-        transform.Translate(tgt, Space.World);
+        public override ActionInstant reverse()
+        {
+            return new ActionMoveBy(delta * -1F, duration);
+        }
+
+        public override void stepInterval(float dt)
+        {
+            float d = dt / duration;
+            Vector3 tgt = delta * d;
+            transform.Translate(tgt, Space.World);
+        }
     }
 }

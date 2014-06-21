@@ -63,8 +63,6 @@ Base actions
 Interval actions
 - [ ] Follow - follows another actor with the given speed for the given amount of time (of forever).
 - [ ] LookAt - rotates the object to look at the given actor.
-
-*These two actions requires the using of MeshActor script instead of Actor.*
 - [x]  SkewBy - skews the mesh by given values.
 - [ ]  SkewTo - skews the mesh to the given values.
 

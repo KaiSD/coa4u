@@ -2,21 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionFadeIn : ActionFadeTo
+namespace coa4u
 {
-
-    public ActionFadeIn(float tgtDuration)
-        : base(1, tgtDuration)
+    /// <summary>
+    /// Fades in the target. The tartet shaders should support transparency in order to use this action.
+    /// </summary>
+    class ActionFadeIn : ActionFadeTo
     {
-    }
 
-    public override Action clone()
-    {
-        return new ActionFadeIn(duration);
-    }
+        public ActionFadeIn(float tgtDuration)
+            : base(1, tgtDuration)
+        {
+        }
 
-    public override Action reverse()
-    {
-        return new ActionFadeIn(duration);
+        /// <summary>
+        /// Returns a copy of the action.
+        /// </summary>
+        public override ActionInstant clone()
+        {
+            return new ActionFadeIn(duration);
+        }
+
+        /// <summary>
+        /// Returns the reversed version of the action, if it is possible.
+        /// </summary>
+        public override ActionInstant reverse()
+        {
+            return new ActionFadeOut(duration);
+        }
     }
 }

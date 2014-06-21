@@ -2,32 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class ActionSetPlace : Action
+namespace coa4u
 {
-    protected Vector3 value;
-
-    public ActionSetPlace(Vector3 tgtPlace)
-        : base()
+    /// <summary>
+    /// Instantly moves the target to the given point.
+    /// </summary>
+    class ActionSetPlace : ActionInstant
     {
-        value = tgtPlace;
-    }
+        protected Vector3 value;
 
-    public ActionSetPlace(Vector2 tgtPlace)
-        : this((Vector3) tgtPlace)
-    {
-        is2d = true;
-    }
+        public ActionSetPlace(Vector3 tgtPlace)
+            : base()
+        {
+            value = tgtPlace;
+        }
 
-    public override Action clone()
-    {
-        return new ActionSetPlace(value);
-    }
+        public ActionSetPlace(Vector2 tgtPlace)
+            : this((Vector3)tgtPlace)
+        {
+            is2d = true;
+        }
 
-    public override void start()
-    {
-        base.start();
-        if (is2d)
-            value.z = transform.position.z;
-        transform.position = value;
+        /// <summary>
+        /// Returns a copy of the action.
+        /// </summary>
+        public override ActionInstant clone()
+        {
+            return new ActionSetPlace(value);
+        }
+
+        /// <summary>
+        /// This method is called at the action start.
+        /// </summary>
+        public override void start()
+        {
+            base.start();
+            if (is2d)
+                value.z = transform.position.z;
+            transform.position = value;
+        }
     }
 }
