@@ -61,6 +61,8 @@ Base actions
 - [x] Random - randomly choises and does one action from the given list.
 
 Interval actions
+- [ ] Follow - follows another actor with the given speed for the given amount of time (of forever).
+- [ ] LookAt - rotates the object to look at the given actor.
 
 *These two actions requires the using of MeshActor script instead of Actor.*
 - [x]  SkewBy - skews the mesh by given values.
@@ -69,6 +71,8 @@ Interval actions
 Instant actions
 - [x] SetRotation - instantly rotates the object to the given euler angles.
 - [x] SetTint - instantly tints the object to the given color.
+- [x] SetDirection - instantly rotates the object to look at the given actor.
+- [ ] Stop - stops all actions for this object.
 
 ### Future plans
 After completing these actions, i'm going to add some more to the list.
