@@ -9,7 +9,7 @@ Since actions are quite simple, i implemented them myself.
 
 ### How to use
 
-1. Put the src folder into your assets folder.
+1. Place the coa4u folder from Assets/scripts in your Assets/scripts folder.
 2. Then attach the Actor.cs script to the object you want.
 3. See the ActorSampleActions.cs class, if you need examples.
 
