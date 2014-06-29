@@ -39,8 +39,8 @@ public class ActorSampleActions : Actor
         }), 5);
         this.AttachAction(seq);
 
-        AddMethodToCache(new MethodHolder(msgHello));
-        AddMethodToCache(new MethodHolder<string>(msgHelloTo));
+        AddMethodToCache(msgHello);
+        AddMethodToCache<string>(msgHelloTo);
     }
 
     void msgHello()

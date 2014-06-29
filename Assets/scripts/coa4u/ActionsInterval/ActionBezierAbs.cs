@@ -26,7 +26,7 @@ namespace coa4u
         public ActionBezierAbs(Vector2 tgtStart, Vector2 tgtSCP, Vector2 tgtECP, Vector2 tgtEnd, float tgtDuration)
             : this((Vector3)tgtStart, (Vector3)tgtSCP, (Vector3)tgtECP, (Vector3)tgtEnd, tgtDuration)
         {
-            is2d = true;
+            locks = Axises.z;
         }
 
         /// <summary>
@@ -52,12 +52,12 @@ namespace coa4u
         {
             base.start();
             float z = transform.position.z;
-            if (is2d)
+            if (locks != Axises.none)
             {
-                startPoint.z = z;
-                endPoint.z = z;
-                startControlPoint.z = z;
-                endControlPoint.z = z;
+                lockAxises(ref startPoint);
+                lockAxises(ref endPoint);
+                lockAxises(ref startControlPoint);
+                lockAxises(ref endControlPoint);
             }
         }
 

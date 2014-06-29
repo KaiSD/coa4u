@@ -21,7 +21,7 @@ namespace coa4u
         public ActionSetDirection(Vector2 tgtValue)
             : this((Vector3)tgtValue)
         {
-            is2d = true;
+            locks = Axises.z;
         }
 
         public ActionSetDirection(Actor tgtActor)
@@ -48,11 +48,11 @@ namespace coa4u
             {
                 value = other.transform.position;
             }
-            if (is2d)
+            if (locks != Axises.none)
             {
                 value.z = transform.position.z;
             }
-            transform.rotation = Quaternion.LookRotation(transform.position - value);
+            transform.rotation = Quaternion.LookRotation(value - transform.position);
         }
     }
 }

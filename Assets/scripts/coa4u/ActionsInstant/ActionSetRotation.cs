@@ -20,7 +20,7 @@ namespace coa4u
         public ActionSetRotation(float angle)
             : this(new Vector3(0, 0, angle))
         {
-            is2d = true;
+            locks = Axises.xy;
         }
 
         /// <summary>
@@ -37,6 +37,8 @@ namespace coa4u
         public override void start()
         {
             base.start();
+            if (locks != Axises.none)
+                lockAxises(ref value);
             transform.rotation = Quaternion.Euler(value);
         }
     }

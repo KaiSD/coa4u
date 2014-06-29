@@ -18,7 +18,7 @@ namespace coa4u
         public ActionScaleTo(Vector2 tgtValue, float tgtDuration)
             : this((Vector3)tgtValue, tgtDuration)
         {
-            is2d = true;
+            locks = Axises.z;
         }
 
         public override ActionInstant clone()
@@ -29,8 +29,8 @@ namespace coa4u
         public override void start()
         {
             base.start();
-            if (is2d)
-                value.z = transform.localScale.z;
+            if (locks != Axises.none)
+                lockAxises(ref value);
             path = value - transform.localScale;
         }
 

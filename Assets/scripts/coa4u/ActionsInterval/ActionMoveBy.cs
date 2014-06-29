@@ -17,7 +17,6 @@ namespace coa4u
         public ActionMoveBy(Vector2 tgtValue, float tgtDuration)
             : this((Vector3)tgtValue, tgtDuration)
         {
-            is2d = true;
         }
 
         public override ActionInstant clone()

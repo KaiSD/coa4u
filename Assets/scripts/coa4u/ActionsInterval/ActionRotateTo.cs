@@ -18,7 +18,7 @@ namespace coa4u
         public ActionRotateTo(float angle, float tgtDuration)
             : this(new Vector3(0, 0, angle), tgtDuration)
         {
-            is2d = true;
+            locks = Axises.xy;
         }
 
         public override ActionInstant clone()
@@ -39,6 +39,8 @@ namespace coa4u
                 else
                     path[i] = t + 360 - f;
             }
+            if (locks != Axises.none)
+                lockAxises(ref path);
         }
         public override void stepInterval(float dt)
         {

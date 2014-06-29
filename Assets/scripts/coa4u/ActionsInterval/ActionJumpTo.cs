@@ -22,7 +22,7 @@ namespace coa4u
         public ActionJumpTo(Vector2 tgtPoint, float tgtHeight, int tgtJumps, float tgtDuration)
             : this((Vector3)tgtPoint, tgtHeight, tgtJumps, tgtDuration)
         {
-            is2d = true;
+            locks = Axises.z;
         }
 
         public override ActionInstant clone()
@@ -33,8 +33,8 @@ namespace coa4u
         public override void start()
         {
             float coeff = 1F / jumps;
-            if (is2d)
-                point.z = transform.position.z;
+            if (locks != Axises.none)
+                lockAxises(ref point);
             Vector3 start = target.gameObject.transform.position;
             Vector3 end = (point - start) * coeff;
             Vector3 cp1 = Vector3.up * height;

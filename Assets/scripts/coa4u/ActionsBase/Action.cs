@@ -4,11 +4,24 @@ using UnityEngine;
 
 namespace coa4u
 {
+    public enum Axises
+    {
+        none,
+        x,
+        y,
+        z,
+        xy,
+        xz,
+        yz,
+        xyz
+    }
+
     /// <summary>
     /// Basic action class for subclassing. To inherit interval actions, consider using the ActionInterval as the base class.
     /// </summary>
     public class ActionInstant
     {
+        public Axises locks = Axises.none;
         protected Actor target;
         protected Transform transform;
         protected Renderer renderer;
@@ -72,6 +85,47 @@ namespace coa4u
         public void setActor(Actor actor)
         {
             target = actor;
+        }
+
+        /// <summary>
+        /// This method modifies the given vector to keep the locked axises untouched.
+        /// </summary>
+        protected void lockAxises(ref Vector3 point)
+        {
+            {
+                if (target == null)
+                    throw new Exception("Can calculate axises only after the action is atached to the actor");
+            }
+
+            switch (locks)
+            {
+                case Axises.x:
+                    point.x = transform.position.x;
+                    break;
+                case Axises.y:
+                    point.y = transform.position.y;
+                    break;
+                case Axises.z:
+                    point.z = transform.position.z;
+                    break;
+                case Axises.xy:
+                    point.x = transform.position.x;
+                    point.y = transform.position.y;
+                    break;
+                case Axises.xz:
+                    point.x = transform.position.x;
+                    point.z = transform.position.z;
+                    break;
+                case Axises.yz:
+                    point.y = transform.position.y;
+                    point.z = transform.position.z;
+                    break;
+                case Axises.xyz:
+                    point.x = transform.position.x;
+                    point.y = transform.position.y;
+                    point.z = transform.position.z;
+                    break;
+            }
         }
 
         /// <summary>

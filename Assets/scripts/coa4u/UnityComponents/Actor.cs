@@ -16,10 +16,15 @@ public class Actor : MonoBehaviour
     protected Vector3 angles2prev = Vector3.zero;
     protected const float coeff = Mathf.PI / 180;
     protected Vector3[] initialState;
+    [HideInInspector]
     public Transform transformCached;
+    [HideInInspector]
     public Renderer rendererCached;
+    [HideInInspector]
     public Mesh meshCached;
+    [HideInInspector]
     public Vector3 skewAngles1;
+    [HideInInspector]
     public Vector3 skewAngles2;
 
     /// <summary>
@@ -29,8 +34,13 @@ public class Actor : MonoBehaviour
     {
         transformCached = gameObject.transform;
         rendererCached = gameObject.renderer;
-        meshCached = gameObject.GetComponent<MeshFilter>().mesh;
-        initialState = meshCached.vertices;
+
+        Component component = gameObject.GetComponent<MeshFilter>();
+        if (component != null)
+        {
+            meshCached = ((MeshFilter)component).mesh;
+            initialState = meshCached.vertices;
+        }
     }
 
     /// <summary>
@@ -51,6 +61,9 @@ public class Actor : MonoBehaviour
     /// </summary>
     void updateSkew()
     {
+        if (meshCached == null)
+            return;
+
         Matrix4x4 m = Matrix4x4.zero;
         m[0, 0] = 1;
         m[1, 1] = 1;
@@ -130,13 +143,21 @@ public class Actor : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds method to cache to speed-up 
+    /// Adds method to cache to speed-up the ActionSendMessage.
     /// </summary>
-    public void AddMethodToCache(MethodHolder method)
+    public void AddMethodToCache(Action method)
     {
-        methodsCache.Add(method.name, method);
+        methodsCache.Add(method.Method.Name, new MethodHolder(method));
     }
 
+    public void AddMethodToCache<T>(Action<T> method)
+    {
+        methodsCache.Add(method.Method.Name, new MethodHolder<T>(method));
+    }
+
+    /// <summary>
+    /// Adds method from cache.
+    /// </summary>
     public void RemoveMethodFromCache(string key)
     {
         if (methodsCache.ContainsKey(key))

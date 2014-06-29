@@ -28,7 +28,6 @@ namespace coa4u
         public ActionBezierRel(Vector2 tgtSCP, Vector2 tgtECP, Vector2 tgtEnd, float tgtDuration)
             : this((Vector3)tgtSCP, (Vector3)tgtECP, (Vector3)tgtEnd, tgtDuration)
         {
-            is2d = true;
         }
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace coa4u
         public ActionSetPlace(Vector2 tgtPlace)
             : this((Vector3)tgtPlace)
         {
-            is2d = true;
+            locks = Axises.z;
         }
 
         /// <summary>
@@ -37,8 +37,8 @@ namespace coa4u
         public override void start()
         {
             base.start();
-            if (is2d)
-                value.z = transform.position.z;
+            if (locks != Axises.none)
+                lockAxises(ref value);
             transform.position = value;
         }
     }

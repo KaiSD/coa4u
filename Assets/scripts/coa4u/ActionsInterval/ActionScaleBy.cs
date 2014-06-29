@@ -18,7 +18,6 @@ namespace coa4u
         public ActionScaleBy(Vector2 tgtValue, float tgtDuration)
             : this((Vector3)tgtValue, tgtDuration)
         {
-            is2d = true;
         }
 
         public override ActionInstant clone()
