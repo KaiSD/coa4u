@@ -42,10 +42,10 @@ namespace coa4u
         public override void Step(float dt)
         {
             float d = dt / duration;
-            Vector3 target = skewAngles1 * d;
-            ((Actor)target).skewAngles1 += target;
-            target = skewAngles2 * d;
-            ((Actor)target).skewAngles2 += target;
+            Vector3 vTarget = skewAngles1 * d;
+            ((Actor)target).skewAngles1 += vTarget;
+            vTarget = skewAngles2 * d;
+            ((Actor)target).skewAngles2 += vTarget;
         }
     }
 }
