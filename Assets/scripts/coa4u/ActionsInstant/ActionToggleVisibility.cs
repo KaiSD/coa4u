@@ -15,28 +15,19 @@ namespace coa4u
         {
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionToggleVisibility();
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionToggleVisibility();
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             renderer.enabled = !renderer.enabled;
         }
     }

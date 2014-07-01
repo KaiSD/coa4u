@@ -11,10 +11,10 @@ namespace coa4u
     {
         protected Vector3 value;
 
-        public ActionSetRotation(Vector3 tgtValue)
+        public ActionSetRotation(Vector3 targetValue)
             : base()
         {
-            value = tgtValue;
+            value = targetValue;
         }
 
         public ActionSetRotation(float angle)
@@ -23,22 +23,16 @@ namespace coa4u
             locks = Axises.xy;
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionSetRotation(value);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             if (locks != Axises.none)
-                lockAxises(ref value);
+                LockAxises(ref value);
             transform.rotation = Quaternion.Euler(value);
         }
     }

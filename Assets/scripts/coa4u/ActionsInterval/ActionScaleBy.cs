@@ -4,35 +4,38 @@ using UnityEngine;
 
 namespace coa4u
 {
+    /// <summary>
+    /// Scales the object by the given multiplier.
+    /// </summary>
     class ActionScaleBy : ActionInterval
     {
         protected Vector3 delta;
         protected Vector3 path;
 
-        public ActionScaleBy(Vector3 tgtDelta, float tgtDuration)
-            : base(tgtDuration)
+        public ActionScaleBy(Vector3 targetDelta, float targetDuration)
+            : base(targetDuration)
         {
-            delta = tgtDelta;
+            delta = targetDelta;
         }
 
-        public ActionScaleBy(Vector2 tgtValue, float tgtDuration)
-            : this((Vector3)tgtValue, tgtDuration)
+        public ActionScaleBy(Vector2 targetValue, float targetDuration)
+            : this((Vector3)targetValue, targetDuration)
         {
         }
 
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionScaleBy(delta, duration);
         }
 
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionScaleBy(delta * -1F, duration);
         }
 
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             Vector3 scale = transform.localScale;
             scale.x *= delta.x;
             scale.y *= delta.y;
@@ -40,16 +43,16 @@ namespace coa4u
             path = scale - transform.localScale;
         }
 
-        public override void stepInterval(float dt)
+        public override void Step(float dt)
         {
             float d = dt / duration;
-            Vector3 tgt = path * d;
-            transform.localScale += tgt;
+            Vector3 target = path * d;
+            transform.localScale += target;
         }
 
-        public override void stop()
+        public override void Stop()
         {
-            base.stop();
+            base.Stop();
         }
     }
 }

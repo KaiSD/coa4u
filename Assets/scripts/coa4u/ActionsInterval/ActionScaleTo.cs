@@ -4,41 +4,44 @@ using UnityEngine;
 
 namespace coa4u
 {
+    /// <summary>
+    /// Rotates to the given value.
+    /// </summary>
     class ActionScaleTo : ActionInterval
     {
         protected Vector3 value;
         protected Vector3 path;
 
-        public ActionScaleTo(Vector3 tgtValue, float tgtDuration)
-            : base(tgtDuration)
+        public ActionScaleTo(Vector3 targetValue, float targetDuration)
+            : base(targetDuration)
         {
-            value = tgtValue;
+            value = targetValue;
         }
 
-        public ActionScaleTo(Vector2 tgtValue, float tgtDuration)
-            : this((Vector3)tgtValue, tgtDuration)
+        public ActionScaleTo(Vector2 targetValue, float targetDuration)
+            : this((Vector3)targetValue, targetDuration)
         {
             locks = Axises.z;
         }
 
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionScaleTo(value, duration);
         }
 
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             if (locks != Axises.none)
-                lockAxises(ref value);
+                LockAxises(ref value);
             path = value - transform.localScale;
         }
 
-        public override void stepInterval(float dt)
+        public override void Step(float dt)
         {
             float d = dt / duration;
-            Vector3 tgt = path * d;
-            transform.localScale += tgt;
+            Vector3 target = path * d;
+            transform.localScale += target;
         }
     }
 }

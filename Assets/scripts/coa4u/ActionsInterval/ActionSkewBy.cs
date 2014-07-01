@@ -4,45 +4,48 @@ using UnityEngine;
 
 namespace coa4u
 {
+    /// <summary>
+    /// Skews the object by the given angles.
+    /// </summary>
     class ActionSkewBy : ActionInterval
     {
         protected Vector3 skewAngles1;
         protected Vector3 skewAngles2;
         protected Mesh mesh;
 
-        public ActionSkewBy(Vector3 tgtAngles1, Vector3 tgtAngles2, float tgtDuration)
-            : base(tgtDuration)
+        public ActionSkewBy(Vector3 targetAngles1, Vector3 targetAngles2, float targetDuration)
+            : base(targetDuration)
         {
-            skewAngles1 = tgtAngles1;
-            skewAngles2 = tgtAngles2;
+            skewAngles1 = targetAngles1;
+            skewAngles2 = targetAngles2;
         }
 
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionSkewBy(skewAngles1, skewAngles2, duration);
         }
 
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionSkewBy(-skewAngles1, -skewAngles2, duration);
         }
 
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             if (!(target is Actor))
             {
                 throw new Exception("You should use Actor class instead of Actor, if you want to skew your object.");
             }
         }
 
-        public override void stepInterval(float dt)
+        public override void Step(float dt)
         {
             float d = dt / duration;
-            Vector3 tgt = skewAngles1 * d;
-            ((Actor)target).skewAngles1 += tgt;
-            tgt = skewAngles2 * d;
-            ((Actor)target).skewAngles2 += tgt;
+            Vector3 target = skewAngles1 * d;
+            ((Actor)target).skewAngles1 += target;
+            target = skewAngles2 * d;
+            ((Actor)target).skewAngles2 += target;
         }
     }
 }

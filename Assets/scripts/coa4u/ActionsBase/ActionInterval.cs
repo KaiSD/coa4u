@@ -13,10 +13,10 @@ namespace coa4u
         protected float timeScale;
         private float dtrdata;
 
-        public ActionInterval(float tgtDuration)
+        public ActionInterval(float targetDuration)
             : base()
         {
-            duration = tgtDuration;
+            duration = targetDuration;
             timeScale = 1F;
             dtr = 0;
         }
@@ -24,7 +24,7 @@ namespace coa4u
         /// <summary>
         /// Returns a copy of the action.
         /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionInterval(duration);
         }
@@ -32,7 +32,7 @@ namespace coa4u
         /// <summary>
         /// Returns the reversed version of the action, if it is possible.
         /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             throw new Exception("Can reverse only the reversable interval actions");
         }
@@ -40,9 +40,9 @@ namespace coa4u
         /// <summary>
         /// This method is called at the action start.
         /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             running = true;
             timer = 0F;
         }
@@ -50,19 +50,19 @@ namespace coa4u
         /// <summary>
         /// This method is called after the interval action is stopped.
         /// </summary>
-        public override void stop()
+        public override void Stop()
         {
-            base.stop();
+            base.Stop();
             running = false;
         }
 
         /// <summary>
-        /// This method is called every frame update. Don't override this method, when inheriting, put your code in stepInterval instead.
+        /// This method is called every frame update. Don't override this method, when inheriting, put your code in Step() instead.
         /// </summary>
-        public override void step(float dt)
+        public override void StepTimer(float dt)
         {
             dt *= timeScale;
-            base.step(dt);
+            base.StepTimer(dt);
             if (timer + dt > duration)
             {
                 float odt = dt;
@@ -73,10 +73,10 @@ namespace coa4u
             {
                 timer += dt;
             }
-            stepInterval(dt);
+            Step(dt);
             if (timer > duration)
             {
-                stop();
+                Stop();
                 dtr = timer - duration;
             }
         }
@@ -84,14 +84,14 @@ namespace coa4u
         /// <summary>
         /// This method is called every frame update. Put your code here.
         /// </summary>
-        public virtual void stepInterval(float dt)
+        public virtual void Step(float dt)
         {
         }
 
         /// <summary>
         /// Immediately changes the time scale for this action and all nested ones.
         /// </summary>
-        public void setTimeScale(float ts)
+        public void SetTimeScale(float ts)
         {
             timeScale = ts;
         }

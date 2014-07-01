@@ -15,46 +15,40 @@ namespace coa4u
         protected float durationMin;
         protected float durationMax;
 
-        public ActionBlink(int tgtBlinks, float tgtDuration)
+        public ActionBlink(int targetBlinks, float targetDuration)
             : base(null, 0)
         {
-            durationMin = tgtDuration;
-            durationMax = tgtDuration;
-            count = (tgtBlinks) * 2;
+            durationMin = targetDuration;
+            durationMax = targetDuration;
+            count = (targetBlinks) * 2;
             blinkSeq = new ActionInstant[]
         {
             new ActionToggleVisibility(),
-            new ActionDelay(tgtDuration / tgtBlinks)
+            new ActionDelay(targetDuration / targetBlinks)
         };
             action = new ActionSequence(blinkSeq);
         }
 
-        public ActionBlink(int tgtBlinks, float tgtDurationMin, float tgtDurationMax)
+        public ActionBlink(int targetBlinks, float targetDurationMin, float targetDurationMax)
             : base(null, 0)
         {
-            durationMin = tgtDurationMin;
-            durationMax = tgtDurationMax;
-            count = (tgtBlinks) * 2;
+            durationMin = targetDurationMin;
+            durationMax = targetDurationMax;
+            count = (targetBlinks) * 2;
             blinkSeq = new ActionInstant[]
         {
             new ActionToggleVisibility(),
-            new ActionDelay(tgtDurationMin / tgtBlinks, tgtDurationMax / tgtBlinks)
+            new ActionDelay(targetDurationMin / targetBlinks, targetDurationMax / targetBlinks)
         };
             action = new ActionSequence(blinkSeq);
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionBlink(count / 2 - 1, durationMin, durationMax);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionBlink(count / 2 - 1, durationMin, durationMax);
         }

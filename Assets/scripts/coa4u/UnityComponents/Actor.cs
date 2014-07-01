@@ -51,15 +51,15 @@ public class Actor : MonoBehaviour
         if (paused || action == null)
             return;
         if (action.running)
-            action.step(Time.deltaTime);
+            action.StepTimer(Time.deltaTime);
         if (skewAngles1 != angles1prev || skewAngles2 != angles2prev)
-            updateSkew();
+            UpdateSkew();
     }
 
     /// <summary>
     /// Updates the skew for the mesh.
     /// </summary>
-    void updateSkew()
+    void UpdateSkew()
     {
         if (meshCached == null)
             return;
@@ -92,15 +92,15 @@ public class Actor : MonoBehaviour
     /// <summary>
     /// Attaches and starts the action.
     /// </summary>
-    public void AttachAction(ActionInstant tgtAction)
+    public void AttachAction(ActionInstant targetAction)
     {
         if (action != null)
         {
-            action.stop();
+            action.Stop();
         }
-        action = tgtAction;
-        action.setActor(this);
-        action.start();
+        action = targetAction;
+        action.SetActor(this);
+        action.Start();
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public class Actor : MonoBehaviour
         if (action == null)
             return;
         if (action.running)
-            action.stop();
+            action.Stop();
         action = null;
     }
 
@@ -138,7 +138,7 @@ public class Actor : MonoBehaviour
     {
         if (action is ActionInterval)
         {
-            ((ActionInterval)action).setTimeScale(ts);
+            ((ActionInterval)action).SetTimeScale(ts);
         }
     }
 
@@ -170,15 +170,14 @@ public class Actor : MonoBehaviour
         }
     }
 
-
     public void ReceiveMessage(string key, object param = null, SendMessageOptions options = SendMessageOptions.DontRequireReceiver)
     {
         if (methodsCache.ContainsKey(key))
         {
             if (param == null)
-                methodsCache[key].run();
+                methodsCache[key].Run();
             else
-                methodsCache[key].run(param);
+                methodsCache[key].Run(param);
         }
         else
         {

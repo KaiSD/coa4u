@@ -37,7 +37,7 @@ namespace coa4u
         /// <summary>
         /// Returns a copy of the action.
         /// </summary>
-        public virtual ActionInstant clone()
+        public virtual ActionInstant Clone()
         {
             return new ActionInstant();
         }
@@ -45,7 +45,7 @@ namespace coa4u
         /// <summary>
         /// Returns the reversed version of the action, if it is possible.
         /// </summary>
-        public virtual ActionInstant reverse()
+        public virtual ActionInstant Reverse()
         {
             throw new Exception("Can reverse only the reversable interval actions");
         }
@@ -53,7 +53,7 @@ namespace coa4u
         /// <summary>
         /// This method is called at the action start. Usable for instant and interval actions.
         /// </summary>
-        public virtual void start()
+        public virtual void Start()
         {
             if (target == null)
                 throw new Exception("Can start the action only after it's atached to the actor");
@@ -64,7 +64,7 @@ namespace coa4u
         /// <summary>
         /// This method is called at every frame update. Not usable for instant actions.
         /// </summary>
-        public virtual void step(float dt)
+        public virtual void StepTimer(float dt)
         {
             if (target == null)
                 throw new Exception("Can update the action only after it's atached to the actor");
@@ -73,7 +73,7 @@ namespace coa4u
         /// <summary>
         /// This method is called after the interval action is stopped. Not usable for instant actions.
         /// </summary>
-        public virtual void stop()
+        public virtual void Stop()
         {
             if (target == null)
                 throw new Exception("Can stop the action only after it's atached to the actor");
@@ -82,7 +82,7 @@ namespace coa4u
         /// <summary>
         /// This method sets the actor for the action.
         /// </summary>
-        public void setActor(Actor actor)
+        public void SetActor(Actor actor)
         {
             target = actor;
         }
@@ -90,7 +90,7 @@ namespace coa4u
         /// <summary>
         /// This method modifies the given vector to keep the locked axises untouched.
         /// </summary>
-        protected void lockAxises(ref Vector3 point)
+        protected void LockAxises(ref Vector3 point)
         {
             {
                 if (target == null)

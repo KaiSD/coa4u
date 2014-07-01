@@ -11,34 +11,28 @@ namespace coa4u
     {
         protected Vector3 value;
 
-        public ActionSetPlace(Vector3 tgtPlace)
+        public ActionSetPlace(Vector3 targetPlace)
             : base()
         {
-            value = tgtPlace;
+            value = targetPlace;
         }
 
-        public ActionSetPlace(Vector2 tgtPlace)
-            : this((Vector3)tgtPlace)
+        public ActionSetPlace(Vector2 targetPlace)
+            : this((Vector3)targetPlace)
         {
             locks = Axises.z;
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionSetPlace(value);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             if (locks != Axises.none)
-                lockAxises(ref value);
+                LockAxises(ref value);
             transform.position = value;
         }
     }

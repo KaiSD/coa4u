@@ -14,73 +14,61 @@ namespace coa4u
         protected int counter;
         protected bool forever;
 
-        public ActionRepeat(ActionInterval tgtAction, int tgtCount)
+        public ActionRepeat(ActionInterval targetAction, int targetCount)
             : base(0)
         {
-            action = tgtAction;
-            count = tgtCount;
+            action = targetAction;
+            count = targetCount;
             counter = 0;
             forever = false;
         }
 
-        public ActionRepeat(ActionInterval tgtAction)
+        public ActionRepeat(ActionInterval targetAction)
             : base(0)
         {
-            action = tgtAction;
+            action = targetAction;
             count = 0;
             counter = 0;
             forever = true;
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
-            return new ActionRepeat((ActionInterval)action.clone(), count);
+            return new ActionRepeat((ActionInterval)action.Clone(), count);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
-            return new ActionRepeat((ActionInterval)action.reverse(), count);
+            return new ActionRepeat((ActionInterval)action.Reverse(), count);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
-            action.setActor(target);
-            action.start();
+            base.Start();
+            action.SetActor(target);
+            action.Start();
             counter = 0;
         }
 
-        /// <summary>
-        /// This method is called every frame update.
-        /// </summary>
-        public override void step(float dt)
+        public override void StepTimer(float dt)
         {
             dt *= timeScale;
             if (action.running)
             {
-                action.step(dt);
+                action.StepTimer(dt);
             }
             if (!action.running && (forever || counter < count - 1))
             {
                 float dtrdata = action.dtr;
-                action.start();
+                action.Start();
                 if (dtrdata > 0)
-                    action.step(dtrdata);
+                    action.StepTimer(dtrdata);
                 counter += 1;
             }
             else if (!action.running && counter >= count - 1)
             {
                 dtr = action.dtr;
-                stop();
+                Stop();
             }
         }
     }

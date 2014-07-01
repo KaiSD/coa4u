@@ -25,73 +25,61 @@ namespace coa4u
 
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             ActionInstant[] aList = new ActionInstant[actions.Length];
             for (int i = 0; i < actions.Length; i++)
             {
-                aList[i] = actions[i].clone();
+                aList[i] = actions[i].Clone();
             }
             return new ActionSequence(aList);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             ActionInstant[] aList = new ActionInstant[actions.Length];
             for (int i = 0; i < actions.Length; i++)
             {
-                aList[actions.Length - 1 - i] = actions[i].reverse();
+                aList[actions.Length - 1 - i] = actions[i].Reverse();
             }
             return new ActionSequence(aList);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             index = 0;
-            actions[0].setActor(target);
-            actions[0].start();
+            actions[0].SetActor(target);
+            actions[0].Start();
             while (!actions[index].running && index < actions.Length)
             {
                 index += 1;
-                actions[index].setActor(target);
-                actions[index].start();
+                actions[index].SetActor(target);
+                actions[index].Start();
             }
         }
 
-        /// <summary>
-        /// This method is called every frame update.
-        /// </summary>
-        public override void step(float dt)
+        public override void StepTimer(float dt)
         {
             dt *= timeScale;
             float dtrdata = 0;
             if (actions[index].running)
             {
-                actions[index].step(dt);
+                actions[index].StepTimer(dt);
                 if (!actions[index].running)
                     dtrdata = actions[index].dtr;
             }
             while (!actions[index].running && index < actions.Length - 1)
             {
                 index += 1;
-                actions[index].setActor(target);
-                actions[index].start();
+                actions[index].SetActor(target);
+                actions[index].Start();
                 if (actions[index].running && dtrdata > 0)
-                    actions[index].step(dtrdata);
+                    actions[index].StepTimer(dtrdata);
             }
             if (!actions[index].running)
             {
-                stop();
+                Stop();
                 dtr = dtrdata;
             }
         }
@@ -99,12 +87,12 @@ namespace coa4u
         /// <summary>
         /// This method is called after the interval action is stopped.
         /// </summary>
-        public override void stop()
+        public override void Stop()
         {
-            base.stop();
+            base.Stop();
             for (int i = 0; i < actions.Length; i++)
             {
-                actions[i].stop();
+                actions[i].Stop();
             }
         }
     }

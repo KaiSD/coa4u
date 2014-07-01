@@ -11,37 +11,28 @@ namespace coa4u
     {
         protected float delta;
 
-        public ActionFadeBy(float tgtDelta, float tgtDuration)
-            : base(tgtDuration)
+        public ActionFadeBy(float targetDelta, float targetDuration)
+            : base(targetDuration)
         {
-            delta = tgtDelta;
+            delta = targetDelta;
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionFadeBy(delta, duration);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionFadeBy(-delta, duration);
         }
 
-        /// <summary>
-        /// This method is called every frame update.
-        /// </summary>
-        public override void stepInterval(float dt)
+        public override void Step(float dt)
         {
             float d = dt / duration;
-            Color tgtColor = renderer.material.color;
-            tgtColor[3] += delta * d;
-            renderer.material.color = tgtColor;
+            Color targetColor = renderer.material.color;
+            targetColor[3] += delta * d;
+            renderer.material.color = targetColor;
         }
     }
 }

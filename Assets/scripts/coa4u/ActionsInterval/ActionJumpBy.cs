@@ -4,37 +4,40 @@ using UnityEngine;
 
 namespace coa4u
 {
+    /// <summary>
+    /// Jumps given number of times in the given direction for the given amount of seconds.
+    /// </summary>
     class ActionJumpBy : ActionSequence
     {
         protected Vector3 point;
         float height;
         int jumps;
 
-        public ActionJumpBy(Vector3 tgtPoint, float tgtHeight, int tgtJumps, float tgtDuration)
-            : base(new ActionInstant[tgtJumps])
+        public ActionJumpBy(Vector3 targetPoint, float targetHeight, int targetJumps, float targetDuration)
+            : base(new ActionInstant[targetJumps])
         {
-            point = tgtPoint;
-            jumps = tgtJumps;
-            height = tgtHeight;
-            duration = tgtDuration;
+            point = targetPoint;
+            jumps = targetJumps;
+            height = targetHeight;
+            duration = targetDuration;
         }
 
-        public ActionJumpBy(Vector2 tgtPoint, float tgtHeight, int tgtJumps, float tgtDuration)
-            : this((Vector3)tgtPoint, tgtHeight, tgtJumps, tgtDuration)
+        public ActionJumpBy(Vector2 targetPoint, float targetHeight, int targetJumps, float targetDuration)
+            : this((Vector3)targetPoint, targetHeight, targetJumps, targetDuration)
         {
         }
 
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionJumpBy(point, height, jumps, duration);
         }
 
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionJumpBy(-point, height, jumps, duration);
         }
 
-        public override void start()
+        public override void Start()
         {
             float coeff = 1F / jumps;
             Vector3 end = point * coeff;
@@ -45,7 +48,7 @@ namespace coa4u
             {
                 actions[i] = singleJump;
             }
-            base.start();
+            base.Start();
         }
     }
 }

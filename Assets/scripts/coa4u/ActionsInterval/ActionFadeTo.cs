@@ -12,38 +12,29 @@ namespace coa4u
         protected float value;
         protected float delta;
 
-        public ActionFadeTo(float tgtValue, float tgtDuration)
-            : base(tgtDuration)
+        public ActionFadeTo(float targetValue, float targetDuration)
+            : base(targetDuration)
         {
-            value = tgtValue;
+            value = targetValue;
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionFadeTo(value, duration);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             delta = value - renderer.material.color.a;
         }
 
-        /// <summary>
-        /// This method is called every frame update.
-        /// </summary>
-        public override void stepInterval(float dt)
+        public override void Step(float dt)
         {
             float d = dt / duration;
-            Color tgtColor = renderer.material.color;
-            tgtColor[3] += delta * d;
-            renderer.material.color = tgtColor;
+            Color targetColor = renderer.material.color;
+            targetColor[3] += delta * d;
+            renderer.material.color = targetColor;
         }
     }
 }

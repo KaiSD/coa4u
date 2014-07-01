@@ -17,51 +17,39 @@ namespace coa4u
         protected Vector3 startControlPoint;
         protected Vector3 endControlPoint;
 
-        public ActionBezierRel(Vector3 tgtSCP, Vector3 tgtECP, Vector3 tgtEnd, float tgtDuration)
-            : base(tgtDuration)
+        public ActionBezierRel(Vector3 targetSCP, Vector3 targetECP, Vector3 targetEnd, float targetDuration)
+            : base(targetDuration)
         {
-            ep = tgtEnd;
-            cp1 = tgtSCP;
-            cp2 = tgtECP;
+            ep = targetEnd;
+            cp1 = targetSCP;
+            cp2 = targetECP;
         }
 
-        public ActionBezierRel(Vector2 tgtSCP, Vector2 tgtECP, Vector2 tgtEnd, float tgtDuration)
-            : this((Vector3)tgtSCP, (Vector3)tgtECP, (Vector3)tgtEnd, tgtDuration)
+        public ActionBezierRel(Vector2 targetSCP, Vector2 targetECP, Vector2 targetEnd, float targetDuration)
+            : this((Vector3)targetSCP, (Vector3)targetECP, (Vector3)targetEnd, targetDuration)
         {
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionBezierRel(startControlPoint, endControlPoint, endPoint, duration);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionBezierRel(-startControlPoint, -endControlPoint, -endPoint, duration);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             startPoint = target.transform.position;
             endPoint = startPoint + ep;
             startControlPoint = startPoint + cp1;
             endControlPoint = startControlPoint + cp2;
         }
 
-        /// <summary>
-        /// This method is called every frame update.
-        /// </summary>
-        public override void stepInterval(float dt)
+        public override void Step(float dt)
         {
             float t = timer / duration;
             Vector3 newPosition = (((-startPoint

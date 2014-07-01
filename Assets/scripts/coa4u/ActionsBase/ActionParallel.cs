@@ -24,55 +24,43 @@ namespace coa4u
 
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             ActionInstant[] aList = new ActionInstant[actions.Length];
             for (int i = 0; i < actions.Length; i++)
             {
-                aList[i] = actions[i].clone();
+                aList[i] = actions[i].Clone();
             }
             return new ActionSequence(aList);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             ActionInstant[] aList = new ActionInstant[actions.Length];
             for (int i = 0; i < actions.Length; i++)
             {
-                aList[i] = actions[i].reverse();
+                aList[i] = actions[i].Reverse();
             }
             return new ActionSequence(aList);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             for (int i = 0; i < actions.Length; i++)
             {
-                actions[i].setActor(target);
-                actions[i].start();
+                actions[i].SetActor(target);
+                actions[i].Start();
             }
         }
 
-        /// <summary>
-        /// This method is called every frame update.
-        /// </summary>
-        public override void step(float dt)
+        public override void StepTimer(float dt)
         {
             dt *= timeScale;
             for (int i = 0; i < actions.Length; i++)
             {
                 if (actions[i].running)
-                    actions[i].step(dt);
+                    actions[i].StepTimer(dt);
             }
             bool canStopNow = true;
             float dtrdata = 0;
@@ -86,7 +74,7 @@ namespace coa4u
             }
             if (canStopNow)
             {
-                stop();
+                Stop();
                 dtr = dtrdata;
             }
         }
@@ -94,12 +82,12 @@ namespace coa4u
         /// <summary>
         /// This method is called after the interval action is stopped.
         /// </summary>
-        public override void stop()
+        public override void Stop()
         {
-            base.stop();
+            base.Stop();
             for (int i = 0; i < actions.Length; i++)
             {
-                actions[i].stop();
+                actions[i].Stop();
             }
         }
     }

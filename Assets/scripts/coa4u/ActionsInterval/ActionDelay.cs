@@ -12,26 +12,23 @@ namespace coa4u
         protected float durationMin;
         protected float durationMax;
 
-        public ActionDelay(float tgtDuration)
-            : base(tgtDuration)
+        public ActionDelay(float targetDuration)
+            : base(targetDuration)
         {
-            durationMin = tgtDuration;
-            durationMax = tgtDuration;
+            durationMin = targetDuration;
+            durationMax = targetDuration;
         }
 
-        public ActionDelay(float tgtDuration, float tgtDurationMax)
-            : base(tgtDuration)
+        public ActionDelay(float targetDuration, float targetDurationMax)
+            : base(targetDuration)
         {
-            durationMin = tgtDuration;
-            durationMax = tgtDurationMax;
+            durationMin = targetDuration;
+            durationMax = targetDurationMax;
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             if (durationMax != null)
             {
                 duration = UnityEngine.Random.Range(durationMin, durationMax);

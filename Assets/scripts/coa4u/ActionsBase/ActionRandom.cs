@@ -26,54 +26,42 @@ namespace coa4u
 
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             ActionInstant[] aList = new ActionInstant[actions.Length];
             for (int i = 0; i < actions.Length; i++)
             {
-                aList[i] = actions[i].clone();
+                aList[i] = actions[i].Clone();
             }
             return new ActionRandom(aList);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             ActionInstant[] aList = new ActionInstant[actions.Length];
             for (int i = 0; i < actions.Length; i++)
             {
-                aList[i] = actions[i].reverse();
+                aList[i] = actions[i].Reverse();
             }
             return new ActionRandom(aList);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             index = UnityEngine.Random.Range(0, actions.Length);
-            actions[index].setActor(target);
-            actions[index].start();
+            actions[index].SetActor(target);
+            actions[index].Start();
         }
 
-        /// <summary>
-        /// This method is called every frame update.
-        /// </summary>
-        public override void step(float dt)
+        public override void StepTimer(float dt)
         {
             dt *= timeScale;
             if (actions[index].running)
-                actions[index].step(dt);
+                actions[index].StepTimer(dt);
             if (!actions[index].running)
             {
-                stop();
+                Stop();
                 dtr = actions[index].dtr;
             }
         }
@@ -81,10 +69,10 @@ namespace coa4u
         /// <summary>
         /// This method is called after the interval action is stopped.
         /// </summary>
-        public override void stop()
+        public override void Stop()
         {
-            base.stop();
-            actions[index].stop();
+            base.Stop();
+            actions[index].Stop();
         }
     }
 }

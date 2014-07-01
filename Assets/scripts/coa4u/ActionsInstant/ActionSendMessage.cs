@@ -15,49 +15,40 @@ namespace coa4u
         protected object param;
         protected SendMessageOptions options = SendMessageOptions.DontRequireReceiver;
 
-        public ActionSendMessage(string tgtMessage)
+        public ActionSendMessage(string targetMessage)
             : base()
         {
-            message = tgtMessage;
+            message = targetMessage;
         }
 
-        public ActionSendMessage(string tgtMessage, object tgtParam)
+        public ActionSendMessage(string targetMessage, object targetParam)
             : base()
         {
-            message = tgtMessage;
-            param = tgtParam;
+            message = targetMessage;
+            param = targetParam;
         }
 
-        public ActionSendMessage(string tgtMessage, object tgtParam, SendMessageOptions tgtOptions)
+        public ActionSendMessage(string targetMessage, object targetParam, SendMessageOptions targetOptions)
             : base()
         {
-            message = tgtMessage;
-            param = tgtParam;
-            options = tgtOptions;
+            message = targetMessage;
+            param = targetParam;
+            options = targetOptions;
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionSendMessage(message, param, options);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionSendMessage(message, param, options);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             if (param != null)
             {
                 target.ReceiveMessage(message, param, options);

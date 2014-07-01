@@ -34,21 +34,21 @@ public class ActorSampleActions : Actor
             new ActionRotateTo(new Vector3(0, 0, 0), 1),
             new ActionFadeOut(2),
             new ActionSetTint(new Vector4(67, 105, 181)),
-            new ActionSendMessage("msgHello"),
-            new ActionSendMessage("msgHelloTo", "world"),
+            new ActionSendMessage("MessageHello"),
+            new ActionSendMessage("MessageHelloTo", "world"),
         }), 5);
         this.AttachAction(seq);
 
-        AddMethodToCache(msgHello);
-        AddMethodToCache<string>(msgHelloTo);
+        AddMethodToCache(MessageHello);
+        AddMethodToCache<string>(MessageHelloTo);
     }
 
-    void msgHello()
+    void MessageHello()
     {
         Debug.Log("Hello!");
     }
 
-    void msgHelloTo(string who)
+    void MessageHelloTo(string who)
     {
         Debug.Log("Hello " + who.ToString() + "!");
     }

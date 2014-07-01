@@ -14,57 +14,45 @@ namespace coa4u
         protected Vector3 startControlPoint;
         protected Vector3 endControlPoint;
 
-        public ActionBezierAbs(Vector3 tgtStart, Vector3 tgtSCP, Vector3 tgtECP, Vector3 tgtEnd, float tgtDuration)
-            : base(tgtDuration)
+        public ActionBezierAbs(Vector3 targetStart, Vector3 targetSCP, Vector3 targetECP, Vector3 targetEnd, float targetDuration)
+            : base(targetDuration)
         {
-            startPoint = tgtStart;
-            endPoint = tgtEnd;
-            startControlPoint = tgtSCP;
-            endControlPoint = tgtECP;
+            startPoint = targetStart;
+            endPoint = targetEnd;
+            startControlPoint = targetSCP;
+            endControlPoint = targetECP;
         }
 
-        public ActionBezierAbs(Vector2 tgtStart, Vector2 tgtSCP, Vector2 tgtECP, Vector2 tgtEnd, float tgtDuration)
-            : this((Vector3)tgtStart, (Vector3)tgtSCP, (Vector3)tgtECP, (Vector3)tgtEnd, tgtDuration)
+        public ActionBezierAbs(Vector2 targetStart, Vector2 targetSCP, Vector2 targetECP, Vector2 targetEnd, float targetDuration)
+            : this((Vector3)targetStart, (Vector3)targetSCP, (Vector3)targetECP, (Vector3)targetEnd, targetDuration)
         {
             locks = Axises.z;
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionBezierAbs(startPoint, startControlPoint, endControlPoint, endPoint, duration);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionBezierAbs(endPoint, endControlPoint, startControlPoint, startPoint, duration);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             float z = transform.position.z;
             if (locks != Axises.none)
             {
-                lockAxises(ref startPoint);
-                lockAxises(ref endPoint);
-                lockAxises(ref startControlPoint);
-                lockAxises(ref endControlPoint);
+                LockAxises(ref startPoint);
+                LockAxises(ref endPoint);
+                LockAxises(ref startControlPoint);
+                LockAxises(ref endControlPoint);
             }
         }
 
-        /// <summary>
-        /// This method is called every frame update.
-        /// </summary>
-        public override void stepInterval(float dt)
+        public override void Step(float dt)
         {
             float t = timer / duration;
             Vector3 newPosition = (((-startPoint

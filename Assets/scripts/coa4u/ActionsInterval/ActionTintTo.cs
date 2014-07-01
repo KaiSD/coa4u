@@ -4,49 +4,52 @@ using UnityEngine;
 
 namespace coa4u
 {
+    /// <summary>
+    /// Tints the target to the given color value. If you're going to change alpha, target shaders should support transparency.
+    /// </summary>
     class ActionTintTo : ActionInterval
     {
         protected Vector4 color;
         protected Vector4 path;
         protected const float coeff = 1F / 255F;
 
-        public ActionTintTo(Vector4 tgtColor, float tgtDuration)
-            : base(tgtDuration)
+        public ActionTintTo(Vector4 targetColor, float targetDuration)
+            : base(targetDuration)
         {
-            color = tgtColor * coeff;
+            color = targetColor * coeff;
             path = Vector4.zero;
         }
 
-        public ActionTintTo(Vector3 tgtColor, float tgtDuration)
-            : this(new Vector4(tgtColor.x, tgtColor.y, tgtColor.z), tgtDuration)
+        public ActionTintTo(Vector3 targetColor, float targetDuration)
+            : this(new Vector4(targetColor.x, targetColor.y, targetColor.z), targetDuration)
         {
         }
 
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionTintTo(color / coeff, duration);
         }
 
-        public override void start()
+        public override void Start()
         {
-            base.start();
-            Color tgtColor = renderer.material.color;
-            path[0] = color[0] - tgtColor[0];
-            path[1] = color[1] - tgtColor[1];
-            path[2] = color[2] - tgtColor[2];
-            path[3] = color[3] - tgtColor[3];
+            base.Start();
+            Color targetColor = renderer.material.color;
+            path[0] = color[0] - targetColor[0];
+            path[1] = color[1] - targetColor[1];
+            path[2] = color[2] - targetColor[2];
+            path[3] = color[3] - targetColor[3];
         }
 
-        public override void stepInterval(float dt)
+        public override void Step(float dt)
         {
             float d = dt / duration;
-            Vector4 tgt = path * d;
-            Color tgtColor = renderer.material.color;
-            tgtColor[0] += tgt[0];
-            tgtColor[1] += tgt[1];
-            tgtColor[2] += tgt[2];
-            tgtColor[3] += tgt[3];
-            renderer.material.color = tgtColor;
+            Vector4 target = path * d;
+            Color targetColor = renderer.material.color;
+            targetColor[0] += target[0];
+            targetColor[1] += target[1];
+            targetColor[2] += target[2];
+            targetColor[3] += target[3];
+            renderer.material.color = targetColor;
         }
     }
 }

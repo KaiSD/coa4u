@@ -4,31 +4,34 @@ using UnityEngine;
 
 namespace coa4u
 {
+    /// <summary>
+    /// Rotates to the given euler angles.
+    /// </summary>
     class ActionRotateTo : ActionInterval
     {
         protected Vector3 value;
         protected Vector3 path;
 
-        public ActionRotateTo(Vector3 tgtValue, float tgtDuration)
-            : base(tgtDuration)
+        public ActionRotateTo(Vector3 targetValue, float targetDuration)
+            : base(targetDuration)
         {
-            value = tgtValue;
+            value = targetValue;
         }
 
-        public ActionRotateTo(float angle, float tgtDuration)
-            : this(new Vector3(0, 0, angle), tgtDuration)
+        public ActionRotateTo(float angle, float targetDuration)
+            : this(new Vector3(0, 0, angle), targetDuration)
         {
             locks = Axises.xy;
         }
 
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionRotateTo(value, duration);
         }
 
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             path = new Vector3();
             for (int i = 0; i < 3; i++)
             {
@@ -40,13 +43,13 @@ namespace coa4u
                     path[i] = t + 360 - f;
             }
             if (locks != Axises.none)
-                lockAxises(ref path);
+                LockAxises(ref path);
         }
-        public override void stepInterval(float dt)
+        public override void Step(float dt)
         {
             float d = dt / duration;
-            Vector3 tgt = path * d;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + tgt);
+            Vector3 target = path * d;
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + target);
         }
     }
 }

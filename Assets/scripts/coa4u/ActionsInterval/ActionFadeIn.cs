@@ -10,23 +10,17 @@ namespace coa4u
     class ActionFadeIn : ActionFadeTo
     {
 
-        public ActionFadeIn(float tgtDuration)
-            : base(1, tgtDuration)
+        public ActionFadeIn(float targetDuration)
+            : base(1, targetDuration)
         {
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionFadeIn(duration);
         }
 
-        /// <summary>
-        /// Returns the reversed version of the action, if it is possible.
-        /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionFadeOut(duration);
         }

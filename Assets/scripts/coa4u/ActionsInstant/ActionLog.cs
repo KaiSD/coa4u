@@ -11,16 +11,13 @@ namespace coa4u
     {
         string message;
 
-        public ActionLog(string tgtMessage)
+        public ActionLog(string targetMessage)
             : base()
         {
-            message = tgtMessage;
+            message = targetMessage;
         }
 
-        /// <summary>
-        /// Returns a copy of the action.
-        /// </summary>
-        public override ActionInstant clone()
+        public override ActionInstant Clone()
         {
             return new ActionLog(message);
         }
@@ -28,17 +25,14 @@ namespace coa4u
         /// <summary>
         /// Returns the reversed version of the action, if it is possible.
         /// </summary>
-        public override ActionInstant reverse()
+        public override ActionInstant Reverse()
         {
             return new ActionLog(message);
         }
 
-        /// <summary>
-        /// This method is called at the action start.
-        /// </summary>
-        public override void start()
+        public override void Start()
         {
-            base.start();
+            base.Start();
             Debug.Log(message);
         }
     }
