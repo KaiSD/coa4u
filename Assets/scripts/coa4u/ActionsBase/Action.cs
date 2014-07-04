@@ -4,18 +4,6 @@ using UnityEngine;
 
 namespace coa4u
 {
-    public enum Axises
-    {
-        none,
-        x,
-        y,
-        z,
-        xy,
-        xz,
-        yz,
-        xyz
-    }
-
     /// <summary>
     /// Basic action class for subclassing. To inherit interval actions, consider using the ActionInterval as the base class.
     /// </summary>

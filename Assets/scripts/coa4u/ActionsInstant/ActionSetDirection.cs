@@ -28,6 +28,7 @@ namespace coa4u
             : base()
         {
             other = targetActor;
+            value = targetActor.transformCached.position;
         }
 
         public override ActionInstant Clone()
@@ -40,7 +41,7 @@ namespace coa4u
             base.Start();
             if (other != null)
             {
-                value = other.transform.position;
+                value = other.transformCached.position;
             }
             if (locks != Axises.none)
             {
