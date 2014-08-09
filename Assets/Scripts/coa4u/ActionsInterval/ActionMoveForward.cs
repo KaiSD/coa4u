@@ -7,29 +7,31 @@ namespace coa4u
     /// <summary>
     /// Moves in the given direction for the given amount of seconds.
     /// </summary>
-    class ActionMoveBy : ActionInterval
+    class ActionMoveForward : ActionInterval
     {
+        protected float speed;
         protected Vector3 delta;
 
-        public ActionMoveBy(Vector3 targetDelta, float targetDuration)
+        public ActionMoveForward(float targetSpeed, float targetDuration)
             : base(targetDuration)
         {
-            delta = targetDelta;
-        }
-
-        public ActionMoveBy(Vector2 targetValue, float targetDuration)
-            : this((Vector3)targetValue, targetDuration)
-        {
+            speed = targetSpeed;
         }
 
         public override ActionInstant Clone()
         {
-            return new ActionMoveBy(delta, duration);
+            return new ActionMoveForward(speed, duration);
         }
 
         public override ActionInstant Reverse()
         {
-            return new ActionMoveBy(delta * -1F, duration);
+            return new ActionMoveForward(speed * -1F, duration);
+        }
+
+        public override void Start()
+        {
+            base.Start();
+            delta = speed * transform.forward;
         }
 
         public override void Step(float dt)

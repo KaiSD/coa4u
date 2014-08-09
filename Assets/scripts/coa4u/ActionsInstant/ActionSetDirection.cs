@@ -44,9 +44,7 @@ namespace coa4u
                 value = other.transformCached.position;
             }
             if (locks != Axises.none)
-            {
-                value.z = transform.position.z;
-            }
+                LockAxises(ref value);
             transform.rotation = Quaternion.LookRotation(value - transform.position);
         }
     }

@@ -11,7 +11,7 @@ namespace coa4u
     {
 
         public ActionFadeIn(float targetDuration)
-            : base(1, targetDuration)
+            : base(2, targetDuration)
         {
         }
 
@@ -23,6 +23,14 @@ namespace coa4u
         public override ActionInstant Reverse()
         {
             return new ActionFadeOut(duration);
+        }
+
+        public override void Start()
+        {
+            base.Start();
+            Color targetColor = renderer.material.color;
+            targetColor.a = 0;
+            renderer.material.color = targetColor;
         }
     }
 }

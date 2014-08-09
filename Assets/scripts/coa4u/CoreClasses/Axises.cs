@@ -13,6 +13,15 @@ namespace coa4u
         xy,
         xz,
         yz,
-        xyz
+        xyz,
+        rx,
+        ry,
+        rz,
+        rxy,
+        rxz,
+        ryz,
+        rxyz
+
+
     }
 }

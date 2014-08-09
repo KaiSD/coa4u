@@ -4,28 +4,23 @@ using UnityEngine;
 
 namespace coa4u
 {
-    public enum Axises
-    {
-        none,
-        x,
-        y,
-        z,
-        xy,
-        xz,
-        yz,
-        xyz
-    }
-
     /// <summary>
     /// Basic action class for subclassing. To inherit interval actions, consider using the ActionInterval as the base class.
     /// </summary>
     public class ActionInstant
     {
+        /// <summary>
+        /// Axis locks - the action will try to preserve tha values of these axises when moving or rotating the target.
+        /// </summary>
         public Axises locks = Axises.none;
+        /// <summary>
+        /// Sets if the action should stop when the actor's StopAllActions method is called.
+        /// </summary>
+        public bool unstopable = false;
+
         protected Actor target;
         protected Transform transform;
         protected Renderer renderer;
-        protected bool is2d = false;
         private float durationValue = 0;
         private float dtrValue = 0;
         private bool isRunning = false;
@@ -124,6 +119,32 @@ namespace coa4u
                     point.x = transform.position.x;
                     point.y = transform.position.y;
                     point.z = transform.position.z;
+                    break;
+                case Axises.rx:
+                    point.x = transform.rotation.eulerAngles.x;
+                    break;
+                case Axises.ry:
+                    point.y = transform.rotation.eulerAngles.y;
+                    break;
+                case Axises.rz:
+                    point.z = transform.rotation.eulerAngles.z;
+                    break;
+                case Axises.rxy:
+                    point.x = transform.rotation.eulerAngles.x;
+                    point.y = transform.rotation.eulerAngles.y;
+                    break;
+                case Axises.rxz:
+                    point.x = transform.rotation.eulerAngles.x;
+                    point.z = transform.rotation.eulerAngles.z;
+                    break;
+                case Axises.ryz:
+                    point.y = transform.rotation.eulerAngles.y;
+                    point.z = transform.rotation.eulerAngles.z;
+                    break;
+                case Axises.rxyz:
+                    point.x = transform.rotation.eulerAngles.x;
+                    point.y = transform.rotation.eulerAngles.y;
+                    point.z = transform.rotation.eulerAngles.z;
                     break;
             }
         }

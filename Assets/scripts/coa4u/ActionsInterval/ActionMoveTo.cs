@@ -40,8 +40,7 @@ namespace coa4u
         public override void Step(float dt)
         {
             float d = dt / duration;
-            Vector3 target = path * d;
-            transform.Translate(target, Space.World);
+            transform.Translate(path * d, Space.World);
         }
     }
 }

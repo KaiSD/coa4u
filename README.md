@@ -63,14 +63,12 @@ Base actions
 Interval actions
 - [ ] Follow - follows another actor with the given speed for the given amount of time (of forever).
 - [ ] LookAt - rotates the object to look at the given actor.
-- [x]  SkewBy - skews the mesh by given values.
-- [ ]  SkewTo - skews the mesh to the given values.
 
 Instant actions
 - [x] SetRotation - instantly rotates the object to the given euler angles.
 - [x] SetTint - instantly tints the object to the given color.
 - [x] SetDirection - instantly rotates the object to look at the given actor.
-- [ ] Stop - stops all actions for this object.
+- [x] Stop - stops all actions for this object.
 
 ### Future plans
 After completing these actions, i'm going to add some more to the list.

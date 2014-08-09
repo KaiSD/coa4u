@@ -79,15 +79,13 @@ namespace coa4u
             }
         }
 
-        /// <summary>
-        /// This method is called after the interval action is stopped.
-        /// </summary>
         public override void Stop()
         {
             base.Stop();
             for (int i = 0; i < actions.Length; i++)
             {
-                actions[i].Stop();
+                if (actions[i].running)
+                    actions[i].Stop();
             }
         }
     }

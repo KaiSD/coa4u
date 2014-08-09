@@ -71,5 +71,12 @@ namespace coa4u
                 Stop();
             }
         }
+
+        public override void Stop()
+        {
+            base.Stop();
+            if (action.running)
+                action.Stop();
+        }
     }
 }

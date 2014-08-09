@@ -20,6 +20,7 @@ namespace coa4u
         public ActionRotateBy(float angle, float targetDuration)
             : this(new Vector3(0, 0, angle), targetDuration)
         {
+            locks = Axises.rxy;
         }
 
         public override ActionInstant Clone()

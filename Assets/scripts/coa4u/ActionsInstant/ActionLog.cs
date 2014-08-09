@@ -7,9 +7,10 @@ namespace coa4u
     /// <summary>
     /// Prints a message in Unity debug console.
     /// </summary>
+    [System.Serializable]
     class ActionLog : ActionInstant
     {
-        string message;
+        public string message;
 
         public ActionLog(string targetMessage)
             : base()

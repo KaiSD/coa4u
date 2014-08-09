@@ -10,22 +10,16 @@ using coa4u;
 public class Actor : MonoBehaviour
 {
     protected Dictionary<string, MethodHolder> methodsCache = new Dictionary<string, MethodHolder>();
-    protected ActionInstant action;
+    protected List<ActionInstant> actions = new List<ActionInstant>();
+    protected List<ActionInstant> actionsToDelete = new List<ActionInstant>();
+    protected List<ActionInstant> actionsToAdd = new List<ActionInstant>();
     private bool paused = false;
-    protected Vector3 angles1prev = Vector3.zero;
-    protected Vector3 angles2prev = Vector3.zero;
+    private bool running = false;
     protected const float coeff = Mathf.PI / 180;
-    protected Vector3[] initialState;
     [HideInInspector]
     public Transform transformCached;
     [HideInInspector]
     public Renderer rendererCached;
-    [HideInInspector]
-    public Mesh meshCached;
-    [HideInInspector]
-    public Vector3 skewAngles1;
-    [HideInInspector]
-    public Vector3 skewAngles2;
 
     /// <summary>
     /// This method is called when the script instance is being loaded.
@@ -34,13 +28,6 @@ public class Actor : MonoBehaviour
     {
         transformCached = gameObject.transform;
         rendererCached = gameObject.renderer;
-
-        Component component = gameObject.GetComponent<MeshFilter>();
-        if (component != null)
-        {
-            meshCached = ((MeshFilter)component).mesh;
-            initialState = meshCached.vertices;
-        }
     }
 
     /// <summary>
@@ -48,45 +35,36 @@ public class Actor : MonoBehaviour
     /// </summary>
     protected void Update()
     {
-        if (paused || action == null)
+        if (paused)
             return;
-        if (action.running)
-            action.StepTimer(Time.deltaTime);
-        if (skewAngles1 != angles1prev || skewAngles2 != angles2prev)
-            UpdateSkew();
+        
+        foreach (ActionInstant action in actions)
+        {
+            if (action.running)
+                action.StepTimer(Time.deltaTime);
+            if (!action.running)
+                actionsToDelete.Add(action);
+        }
     }
 
     /// <summary>
-    /// Updates the skew for the mesh.
+    /// This method is called after the every frame update.
     /// </summary>
-    void UpdateSkew()
+    protected void LateUpdate()
     {
-        if (meshCached == null)
-            return;
-
-        Matrix4x4 m = Matrix4x4.zero;
-        m[0, 0] = 1;
-        m[1, 1] = 1;
-        m[2, 2] = 1;
-        m[3, 3] = 1;
-        m[0, 1] = Mathf.Tan(skewAngles1.x * coeff); // skewing in xy
-        m[0, 2] = Mathf.Tan(skewAngles2.x * coeff); // skewing in xz
-        m[1, 0] = Mathf.Tan(skewAngles1.y * coeff); // skewing in yx
-        m[1, 2] = Mathf.Tan(skewAngles2.y * coeff); // skewing in yz
-        m[2, 0] = Mathf.Tan(skewAngles1.z * coeff); // skewing in zx
-        m[2, 1] = Mathf.Tan(skewAngles2.z * coeff); // skewing in zy
-
-        Vector3[] verts = new Vector3[initialState.Length];
-        int i = 0;
-        while (i < verts.Length)
+        foreach (ActionInstant action in actionsToAdd)
         {
-            verts[i] = m.MultiplyPoint3x4(initialState[i]);
-            i++;
+            if (action.running)
+                actions.Add(action);
         }
-
-        meshCached.vertices = verts;
-        angles1prev = skewAngles1;
-        angles2prev = skewAngles2;
+        foreach (ActionInstant action in actionsToDelete)
+        {
+            if (!action.running)
+                actions.Remove(action);
+        }
+        actionsToDelete.Clear();
+        actionsToAdd.Clear();
+        running = actions.Count > 0;
     }
 
     /// <summary>
@@ -94,31 +72,39 @@ public class Actor : MonoBehaviour
     /// </summary>
     public void AttachAction(ActionInstant targetAction)
     {
-        if (action != null)
+        targetAction.SetActor(this);
+        targetAction.Start();
+        if (targetAction.running)
         {
-            action.Stop();
+            actionsToAdd.Add(targetAction);
         }
-        action = targetAction;
-        action.SetActor(this);
-        action.Start();
+    }
+
+    /// <summary>
+    /// Stopes and removes the given action.
+    /// </summary>
+    public void RemoveAction(ActionInstant targetAction)
+    {
+        if (targetAction.running)
+            targetAction.Stop();
     }
 
     /// <summary>
     /// Stops all running actions for this actor.
     /// </summary>
-    public void StopAction()
+    public void StopAllActions()
     {
-        if (action == null)
-            return;
-        if (action.running)
-            action.Stop();
-        action = null;
+        foreach (ActionInstant action in actions)
+        {
+            if (action.running &! action.unstopable)
+                action.Stop();
+        }
     }
 
     /// <summary>
     /// Pauses actions for this actor.
     /// </summary>
-    public void PauseAction()
+    public void PauseActions()
     {
         paused = true;
     }
@@ -126,7 +112,7 @@ public class Actor : MonoBehaviour
     /// <summary>
     /// Unpauses actions for this actor.
     /// </summary>
-    public void UnpauseAction()
+    public void UnpauseActions()
     {
         paused = false;
     }
@@ -136,9 +122,13 @@ public class Actor : MonoBehaviour
     /// </summary>
     public void SetTimeScale(float ts)
     {
-        if (action is ActionInterval)
+        for (int i = 0; i < actions.Count; i++)
         {
-            ((ActionInterval)action).SetTimeScale(ts);
+            ActionInstant action = actions[i];
+            if (action is ActionInterval)
+            {
+                ((ActionInterval)action).SetTimeScale(ts);
+            }
         }
     }
 
@@ -150,6 +140,9 @@ public class Actor : MonoBehaviour
         methodsCache.Add(method.Method.Name, new MethodHolder(method));
     }
 
+    /// <summary>
+    /// Adds method to cache to speed-up the ActionSendMessage.
+    /// </summary>
     public void AddMethodToCache<T>(Action<T> method)
     {
         methodsCache.Add(method.Method.Name, new MethodHolder<T>(method));
@@ -170,6 +163,9 @@ public class Actor : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Proxy method to receive messages. WARNING: If the message can be handled by the actor, it will be handled and will not be passed to the Unity3D gameobject.
+    /// </summary>
     public void ReceiveMessage(string key, object param = null, SendMessageOptions options = SendMessageOptions.DontRequireReceiver)
     {
         if (methodsCache.ContainsKey(key))
@@ -182,6 +178,17 @@ public class Actor : MonoBehaviour
         else
         {
             gameObject.SendMessage(key, param, options);
+        }
+    }
+
+    /// <summary>
+    /// Shows if the actor has any running actions.
+    /// </summary>
+    public bool hasRunningActions
+    {
+        get
+        {
+            return running;
         }
     }
 }

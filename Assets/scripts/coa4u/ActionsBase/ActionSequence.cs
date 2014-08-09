@@ -51,7 +51,7 @@ namespace coa4u
             index = 0;
             actions[0].SetActor(target);
             actions[0].Start();
-            while (!actions[index].running && index < actions.Length)
+            while (!actions[index].running && index < actions.Length - 1)
             {
                 index += 1;
                 actions[index].SetActor(target);
@@ -84,16 +84,11 @@ namespace coa4u
             }
         }
 
-        /// <summary>
-        /// This method is called after the interval action is stopped.
-        /// </summary>
         public override void Stop()
         {
             base.Stop();
-            for (int i = 0; i < actions.Length; i++)
-            {
-                actions[i].Stop();
-            }
+            if (actions[index].running)
+                actions[index].Stop();
         }
     }
 }

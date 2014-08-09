@@ -21,7 +21,7 @@ namespace coa4u
         public ActionRotateTo(float angle, float targetDuration)
             : this(new Vector3(0, 0, angle), targetDuration)
         {
-            locks = Axises.xy;
+            locks = Axises.rxy;
         }
 
         public override ActionInstant Clone()
@@ -37,10 +37,18 @@ namespace coa4u
             {
                 float t = value[i];
                 float f = transform.rotation.eulerAngles[i];
-                if (Math.Abs(t - f) < Math.Abs(t + 360 - f))
+                if ((f - t) <= 180 && (f - t) >= -180)
+                {
                     path[i] = t - f;
-                else
-                    path[i] = t + 360 - f;
+                }
+                else if ((f - t) > 180)
+                {
+                    path[i] = t - f + 360;
+                }
+                else if ((f - t) < -180)
+                {
+                    path[i] = t - f - 360;
+                }
             }
             if (locks != Axises.none)
                 LockAxises(ref path);
@@ -48,8 +56,8 @@ namespace coa4u
         public override void Step(float dt)
         {
             float d = dt / duration;
-            Vector3 target = path * d;
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + target);
+            Vector3 rotation = path * d;
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + rotation);
         }
     }
 }

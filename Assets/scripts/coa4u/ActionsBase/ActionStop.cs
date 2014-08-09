@@ -22,7 +22,7 @@ namespace coa4u
         public override void Start()
         {
             base.Start();
-            target.StopAction();
+            target.StopAllActions();
         }
     }
 }
