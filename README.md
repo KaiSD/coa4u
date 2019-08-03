@@ -60,10 +60,6 @@ There's no plans for 3DGrid actions. You can use the 3D actions instead.
 Base actions
 - [x] Random - randomly choises and does one action from the given list.
 
-Interval actions
-- [ ] Follow - follows another actor with the given speed for the given amount of time (of forever).
-- [ ] LookAt - rotates the object to look at the given actor.
-
 Instant actions
 - [x] SetRotation - instantly rotates the object to the given euler angles.
 - [x] SetTint - instantly tints the object to the given color.
@@ -71,12 +67,7 @@ Instant actions
 - [x] Stop - stops all actions for this object.
 
 ### Future plans
-After completing these actions, i'm going to add some more to the list.
+No future plans.
 
 ## License
 Just like Cocos2D, this code licensed under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)
-
-## Help and donations
-I'm not doing it to make profit, but if you want, [you can send me a couple of bucks via PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Z64675TKXFRFU).
-
-Also, if you'll write some action based on mine, feel free to send it to me, if you want me to add it to the library. I'll put your name on this page.
