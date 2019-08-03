@@ -69,5 +69,7 @@ Instant actions
 ### Future plans
 No future plans.
 
+There were some ideas (you can find in coa4uext), but no plans to develop them further.
+
 ## License
 Just like Cocos2D, this code licensed under the [MIT License](http://en.wikipedia.org/wiki/MIT_License)
