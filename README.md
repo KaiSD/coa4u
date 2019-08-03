@@ -54,7 +54,7 @@ Instant actions
 - [x]  Show
 - [x]  ToggleVisibility
 
-There's no plans for 3DGrid actions. You can use the 3D actions instead.
+There are no plans for 3DGrid actions. You can use the 3D actions instead.
 
 ### Some additional actions
 Base actions
