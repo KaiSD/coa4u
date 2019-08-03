@@ -15,7 +15,7 @@ Since actions are quite simple, i implemented them myself.
 
 You can also add actions on the fly, by using the AttachAction method of the Actor class.
 
-### Included actions (ready and WIP) 
+### Included actions
 All actions are capable to work both in 3D (use Vector3) and 2D (use Vector2) scenes.
 
 Base actions
